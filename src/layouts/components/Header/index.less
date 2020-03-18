@@ -1,0 +1,52 @@
+._local {
+      height: 56px;
+      padding: 0 10px;
+      top: 0;
+      z-index: 10;
+      background: var(--primary-color);
+      color: white;
+
+      &.scrolled {
+            box-shadow: 0 0 10px #666;
+      }
+
+      :global {
+            .right {
+                  .icon_wrap {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: var(--radius_normal);
+
+                        &:hover{
+                              background-color:var(--bg_hover_dark) ;
+                        }
+                  }
+            }
+
+            .ant-input-affix-wrapper {
+                  .ant-input-prefix {
+                        margin-left: 4px;
+                        margin-right: 10px;
+                  }
+
+                  .ant-input-suffix{
+                        svg{
+                              color: white;
+                        }
+                  }
+
+                  input::-webkit-input-placeholder {
+                        color: rgba(255, 255, 255, 0.8);
+                  }
+
+                  input.ant-input {
+                        background-color: transparent;
+                        color: white;
+                  }
+            }
+      }
+}
+
+.placeholder {
+      height: 56px;
+}

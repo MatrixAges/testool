@@ -1,0 +1,57 @@
+._local {
+      width: 40em;
+      height: 30em;
+      padding: 2em 0;
+
+      &.main {
+            background-color: var(--primary-color);
+
+            :global {
+                  .left,.right {
+                        width: calc(~'(100% - 1em) / 2');
+                  }
+
+                  .line_item {
+                        width: 10em;
+                        height: 1.6em;
+                        background-color: white;
+                  }
+
+                  .line_item:nth-of-type(2) {
+                        margin: 5em;
+                  }
+
+                  .center {
+                        width: 1em;
+                        height: 100%;
+                        background-color: white;
+                  }
+            }
+      }
+
+      &.white {
+            background-color: white;
+
+            :global {
+                  .left,.right {
+                        width: calc(~'(100% - 1em) / 2');
+                  }
+
+                  .line_item {
+                        width: 10em;
+                        height: 1.6em;
+                        background-color: var(--primary-color);
+                  }
+
+                  .line_item:nth-of-type(2) {
+                        margin: 5em;
+                  }
+
+                  .center {
+                        width: 1em;
+                        height: 100%;
+                        background-color: var(--primary-color);
+                  }
+            }
+      }
+}
