@@ -12,5 +12,6 @@ export default {
 	'layout.modal.name_analysis': 'Analysis',
 	'layout.modal.name_import': 'Import',
 	'layout.modal.name_export': 'Export',
-	'layout.modal.name_clear': 'Clear'
+      'layout.modal.name_clear': 'Clear',
+      'index.btn_pass': 'Pass',
 }

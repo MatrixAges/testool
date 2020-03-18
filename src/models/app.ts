@@ -1,13 +1,26 @@
 export default {
 	namespace: 'app',
 
-	state: {
-		fold: false
+      state: {
+		group: [
+			{
+				name: 'nodejs'
+			},
+			{
+				name: 'javascript'
+			},
+			{
+				name: 'webpack'
+                  },
+                  {
+				name: 'react'
+			},
+		]
 	},
 
 	subscriptions: {
 		setup ({ dispatch }) {
-			dispatch({ type: 'query' })
+                  dispatch({ type: 'query' })
 		}
 	},
 

@@ -12,5 +12,6 @@ export default {
 	'layout.modal.name_analysis': '分析',
 	'layout.modal.name_import': '导入',
 	'layout.modal.name_export': '导出',
-	'layout.modal.name_clear': '清除'
+	'layout.modal.name_clear': '清除',
+	'index.btn_pass': '通过'
 }

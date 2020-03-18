@@ -5,11 +5,12 @@ import THEME from './src/themes/theme.config'
 export default defineConfig({
 	theme: THEME,
 	antd: {},
-	cssnano: {},
-	locale: { default: 'en-US', antd: true },
-	favicon: '/site/favicon.ico',
+      cssnano: {},
+      history: { type: 'hash' },
+      favicon: '/site/favicon.ico',
 	dva: { immer: true, hmr: true },
 	alias: { R: resolve(__dirname, './') },
+	locale: { default: 'en-US', antd: true },
 	dynamicImport: { loading: '@/components/Loader/index' },
 	extraBabelPlugins: [
 		[

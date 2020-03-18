@@ -2,6 +2,7 @@ import React, { memo, Fragment } from 'react'
 import { useIntl } from 'umi'
 import { Helmet } from 'react-helmet'
 import Header from './components/Header'
+import styles from './index.less'
 
 const Index = (props: any) => {
 	const { children } = props
@@ -13,7 +14,9 @@ const Index = (props: any) => {
 				<title>{lang.formatMessage({ id: 'site.title' })}</title>
 			</Helmet>
 			<Header />
-			{children}
+			<div className='w_100 flex justify_center'>
+				<div className={styles.container}>{children}</div>
+			</div>
 		</Fragment>
 	)
 }

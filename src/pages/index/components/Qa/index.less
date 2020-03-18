@@ -1,0 +1,52 @@
+._local {
+      :global {}
+}
+
+.qa_item {
+      box-shadow: var(--light_box_shadow_card);
+      border-radius: var(--radius_normal);
+      background-color: white;
+      overflow: hidden;
+      margin-bottom: 12px;
+
+      :global {
+            .icon_wrap {
+                  width: 30px;
+                  height: 30px;
+                  border-radius: var(--radius_normal);
+                  margin-right: -10px;
+
+                  &:hover {
+                        background-color: var(--light_bg_hover);
+                  }
+            }
+
+            .question {
+                  .q_item {
+                        padding: 16px 20px;
+                  }
+
+                  .q_head {
+                        padding: 10px 20px;
+                        border-bottom: 1px solid whitesmoke;
+                  }
+
+                  .q_foot {
+                        padding-top: 0;
+                        padding-bottom: 10px;
+                  }
+            }
+
+            .answer {
+
+                  .content {
+                        padding: 16px 20px;
+                        border-bottom: 1px solid whitesmoke;
+                  }
+
+                  .a_foot {
+                        padding: 16px 20px;
+                  }
+            }
+      }
+}
