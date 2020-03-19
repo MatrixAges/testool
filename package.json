@@ -4,7 +4,7 @@
       "author": "matrixage",
       "license": "MIT",
       "private": true,
-      "main": "src/pages/index.tsx",
+      "main": "src/pages/index/index.tsx",
       "description": "A artifact for the test/interview/exam.",
       "keywords": [
             "test",

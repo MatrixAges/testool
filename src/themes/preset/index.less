@@ -24,46 +24,6 @@ body {
       z-index: 10;
 }
 
-.bf-container {
-      border: 1px solid #d1d1d1;
-      border-radius: 6px;
-}
-
-.bf-content {
-      min-height: 600px;
-}
-
-.article-content .image-wrap img {
-      display: block;
-}
-
-.article-content .image-wrap+p:empty {
-      display: none;
-}
-
-.settlement_option_items_wrap_placeholder {
-      width: 100%;
-      height: 60px;
-}
-
-.settlement_option_items_wrap.collapsed {
-      width: ~'calc(100% - 80px)';
-}
-
-.settlement_option_items_wrap {
-      width: ~'calc(100% - 180px)';
-      z-index: 10;
-      height: 60px;
-      background-color: white;
-      border-top: 1px solid whitesmoke;
-}
-
-.title_form_section {
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid @color_border_light;
-}
-
 .article {
       letter-spacing: 0.7px;
       font-size: 16px;
@@ -169,28 +129,38 @@ body {
       border: @border_section;
 }
 
-.ant-modal-content {
-      border: @border_section;
-      background-color: @color_background;
-      box-sizing: border-box;
-
-      .ant-modal-header {
-            background-color: transparent;
-            border-bottom: @border_divide;
-      }
-
-      .ant-modal-footer {
-            border-top: @border_divide;
-      }
-
-      .ant-menu-submenu {
-            .backdrop_blur();
+.ant-modal{
+      .ant-modal-content {
             border: @border_section;
+            background-color: @color_background;
+            box-sizing: border-box;
+      
+            .ant-modal-header {
+                  background-color: transparent;
+                  border-bottom: @border_divide;
+            }
+      
+            .ant-modal-footer {
+                  border-top: @border_divide;
+            }
+      
+            .ant-menu-submenu {
+                  .backdrop_blur();
+                  border: @border_section;
+            }
+      
+            .ant-menu-submenu-popup {
+                  background-color: transparent;
+            }
       }
+}
 
-      .ant-menu-submenu-popup {
-            background-color: transparent;
-      }
+.ant-modal-mask {
+      background-color: rgba(55, 55, 55, 0.2);
+}
+
+.ant-modal-content {
+      box-shadow: none;
 }
 
 .ant-breadcrumb {
@@ -354,14 +324,6 @@ body {
 
 .ant-form-item-control {
       vertical-align: middle;
-}
-
-.ant-modal-mask {
-      background-color: rgba(55, 55, 55, 0.2);
-}
-
-.ant-modal-content {
-      box-shadow: none;
 }
 
 .ant-select-dropdown-menu-item {

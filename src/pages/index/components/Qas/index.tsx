@@ -1,17 +1,18 @@
 import React, { memo, useState } from 'react'
 import { useIntl } from 'umi'
-import { Tag, Rate, Button } from 'antd'
+import { Tag, Rate, Button, Empty } from 'antd'
 import {
 	CheckOutlined,
 	StarOutlined,
 	EditOutlined,
 	UpCircleOutlined,
 	DownCircleOutlined,
-	CheckCircleOutlined
+	CheckCircleOutlined,
+	PlusOutlined
 } from '@ant-design/icons'
 import styles from './index.less'
 
-const Qa = (props: any) => {
+const Qa = () => {
 	const [ state_answer_visible, setStateAnswerVisible ] = useState(false)
 	const lang = useIntl()
 
@@ -42,8 +43,8 @@ const Qa = (props: any) => {
 				</div>
 				<div className='q_foot q_item w_100 border_box flex justify_between align_center'>
 					<div className='tags flex'>
-						<Tag>react</Tag>
-						<Tag>生命周期</Tag>
+						<Tag style={{ fontSize: '10px' }}>react</Tag>
+						<Tag style={{ fontSize: '10px' }}>生命周期</Tag>
 					</div>
 					{state_answer_visible ? (
 						<div
@@ -83,15 +84,18 @@ const Qa = (props: any) => {
 	)
 }
 
-const Index = (props: any) => {
+const Index = () => {
+	const lang = useIntl()
+
 	return (
 		<div className={`${styles._local} w_100`}>
 			<div className='qa_items w_100 border_box flex flex_column'>
-				<Qa />
-				<Qa />
-				<Qa />
-				<Qa />
-				<Qa />
+				<div className='empty_wrap flex flex_column justify_center align_center'>
+					<Empty description={false} />
+					<Button className='mt_12' type='primary' icon={<PlusOutlined />}>
+						{lang.formatMessage({ id: 'index.btn_add' })}
+					</Button>
+				</div>
 			</div>
 		</div>
 	)

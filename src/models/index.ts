@@ -6,7 +6,8 @@ export default modelExtend(pageModel, {
 
 	state: {
 		modal_visible: false,
-		modal_type: 'group'
+		modal_type: 'add_group',
+		filter_visible: false
 	},
 
 	subscriptions: {
