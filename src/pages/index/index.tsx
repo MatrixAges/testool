@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { connect, useIntl } from 'umi'
+import store from 'store'
 import Modal from './components/Modal'
 import Header from './components/Header'
 import Filter from './components/Filter'
@@ -9,7 +10,7 @@ import styles from './index.less'
 const Index = (props: any) => {
 	const {
 		dispatch,
-		app: { group },
+		app: { groups, current_group },
 		index: { modal_visible, modal_type, filter_visible }
 	} = props
 	const lang = useIntl()
@@ -20,24 +21,54 @@ const Index = (props: any) => {
 	}
 
 	const props_modal = {
-		title: enum_modal_title[modal_type],
-		group,
+		groups,
+		current_group,
 		modal_type,
 		visible: modal_visible,
+		title: enum_modal_title[modal_type],
 		onOk () {},
 		onCancel () {
 			dispatch({
 				type: 'index/updateState',
 				payload: { modal_visible: false }
 			})
+		},
+		onAddGroup (name: string) {
+			dispatch({
+				type: 'index/addGroup',
+				payload: {
+					name,
+					message_success: lang.formatMessage({
+						id: 'index.modal.add_group.success'
+					}),
+					message_failed: lang.formatMessage({
+						id: 'index.modal.add_group.failed'
+					})
+				}
+			})
+
+			dispatch({ type: 'app/query' })
+		},
+		onChangeCurrentGroup (v: string) {
+			dispatch({
+				type: 'index/updateState',
+				payload: { modal_visible: false }
+			})
+
+			dispatch({
+				type: 'app/updateState',
+				payload: { current_group: v }
+			})
+
+			store.set('current_group', v)
 		}
 	}
 
 	const props_header = {
-		name: 'webpack',
-            onClearGroup() {
-                  // 清除当前分组的打分数据
-            },
+		name: current_group,
+		onClearGroup () {
+			// 清除当前分组的打分数据
+		},
 		onAddGroup () {
 			dispatch({
 				type: 'index/updateState',
@@ -64,12 +95,25 @@ const Index = (props: any) => {
 		}
 	}
 
+	const props_qas = {
+		groups,
+		onAddGroup () {
+			dispatch({
+				type: 'index/updateState',
+				payload: {
+					modal_visible: true,
+					modal_type: 'add_group'
+				}
+			})
+		}
+	}
+
 	return (
 		<div className={`${styles._local} w_100 border_box flex flex_column`}>
 			<Modal {...props_modal} />
-			<Header {...props_header} />
+			{groups.length > 0 && <Header {...props_header} />}
 			{filter_visible && <Filter />}
-			<Qas />
+			<Qas {...props_qas} />
 		</div>
 	)
 }

@@ -1,5 +1,5 @@
 import React, { memo, Fragment, useState, useEffect } from 'react'
-import { useIntl } from 'umi'
+import { connect, useIntl } from 'umi'
 import { Input } from 'antd'
 import { SearchOutlined, SettingOutlined } from '@ant-design/icons'
 import Logo from '../Logo'
@@ -7,6 +7,7 @@ import Modal from '../Modal'
 import styles from './index.less'
 
 const Index = (props: any) => {
+	const { dispatch, app: { groups } } = props
 	const [ state_scrolled, setStateScrolled ] = useState(false)
 	const [ state_modal_visible, setStateModalVisible ] = useState(false)
 	const lang = useIntl()
@@ -26,6 +27,23 @@ const Index = (props: any) => {
 			window.removeEventListener('scroll', setScrolled)
 		}
 	}, [])
+
+	const onDeleteGroup = (group: string) => {
+		dispatch({
+			type: 'app/deleteGroup',
+			payload: {
+				group,
+				message_success: lang.formatMessage({
+					id: 'layout.modal.clear.message_success'
+				}),
+				message_failed: lang.formatMessage({
+					id: 'layout.modal.clear.message_failed'
+				})
+			}
+		})
+
+		setStateModalVisible(false)
+	}
 
 	return (
 		<Fragment>
@@ -47,8 +65,7 @@ const Index = (props: any) => {
 					size='large'
 					style={{
 						width: '680px',
-						border: 'none',
-						backgroundColor: 'rgba(0, 0, 0, 0.22)'
+						border: 'none'
 					}}
 				/>
 				<div className='right flex align_center'>
@@ -64,13 +81,15 @@ const Index = (props: any) => {
 			</div>
 			<div className={styles.placeholder} />
 			<Modal
+				groups={groups}
 				visible={state_modal_visible}
 				onCancel={() => {
 					setStateModalVisible(false)
 				}}
+				onDeleteGroup={onDeleteGroup}
 			/>
 		</Fragment>
 	)
 }
 
-export default memo(Index)
+export default memo(connect(({ app }: any) => ({ app }))(Index))

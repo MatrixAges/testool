@@ -84,19 +84,34 @@ const Qa = () => {
 	)
 }
 
-const Index = () => {
+interface IProps {
+	groups: Array<string>
+	onAddGroup: () => void
+}
+
+const Index = (props: IProps) => {
+	const { groups, onAddGroup } = props
 	const lang = useIntl()
 
 	return (
 		<div className={`${styles._local} w_100`}>
-			<div className='qa_items w_100 border_box flex flex_column'>
+			{groups.length > 0 ? (
+				<div className='qa_items w_100 border_box flex flex_column'>
+					<Qa />
+				</div>
+			) : (
 				<div className='empty_wrap flex flex_column justify_center align_center'>
 					<Empty description={false} />
-					<Button className='mt_12' type='primary' icon={<PlusOutlined />}>
+					<Button
+						className='mt_12'
+						type='primary'
+						icon={<PlusOutlined />}
+						onClick={onAddGroup}
+					>
 						{lang.formatMessage({ id: 'index.btn_add' })}
 					</Button>
 				</div>
-			</div>
+			)}
 		</div>
 	)
 }

@@ -1,5 +1,8 @@
 import modelExtend from 'dva-model-extend'
 import pageModel from '@/utils/model'
+import { history } from 'umi'
+import { message } from 'antd'
+import { Service_addGroup } from '@/services'
 
 export default modelExtend(pageModel, {
 	namespace: 'index',
@@ -26,6 +29,24 @@ export default modelExtend(pageModel, {
 	},
 
 	effects: {
-		*query ({}, {}) {}
+		*query ({}, {}) {},
+		*addGroup ({ payload }, { call, put }) {
+			const { name, message_success, message_failed } = payload
+
+			const res = yield call(Service_addGroup, name)
+
+			if (res) {
+				message.success(message_success)
+			} else {
+				message.error(message_failed)
+			}
+
+			history.push('/')
+
+			yield put({
+				type: 'updateState',
+				payload: { modal_visible: false }
+			})
+		}
 	}
 })

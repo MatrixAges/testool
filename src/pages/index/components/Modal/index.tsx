@@ -10,15 +10,28 @@ const { useForm, Item } = Form
 
 interface IProps {
 	title: string
-	group: any
+	groups: Array<string>
+	current_group: string
 	visible: boolean
+	modal_type: string
 	onOk: () => void
 	onCancel: () => void
-	modal_type: string
+	onAddGroup: (name: string) => void
+	onChangeCurrentGroup: (v: string) => void
 }
 
 const Index = (props: IProps) => {
-	const { title, group, visible, onOk, onCancel, modal_type } = props
+	const {
+		title,
+		groups,
+		current_group,
+		visible,
+		modal_type,
+		onOk,
+		onCancel,
+		onAddGroup,
+		onChangeCurrentGroup
+	} = props
 	const lang = useIntl()
 	const [ form ] = useForm()
 
@@ -51,6 +64,8 @@ const Index = (props: IProps) => {
 		}
 	}
 
+	const [ state_group_input, setStateGroupInput ] = useState('')
+
 	const props_modal = {
 		title,
 		visible,
@@ -73,18 +88,29 @@ const Index = (props: IProps) => {
 						<div className='w_100 border_box flex flex_column'>
 							{options}
 							<div className='w_100 border_box flex border_box p_10'>
-								<Input />
+								<Input
+									onChange={(e) => {
+										setStateGroupInput(e.target.value)
+									}}
+								/>
 								<Button
 									className='ml_12'
 									icon={<CheckOutlined />}
+									onClick={() => {
+										if (state_group_input) {
+											onAddGroup(state_group_input)
+										}
+									}}
 								/>
 							</div>
 						</div>
 					)}
+					defaultValue={current_group}
+					onChange={onChangeCurrentGroup}
 				>
-					{group.map((item) => (
-						<Option value={item.name} key={item.name}>
-							{item.name}
+					{groups.map((item) => (
+						<Option value={item} key={item}>
+							{item}
 						</Option>
 					))}
 				</Select>
@@ -142,7 +168,7 @@ const Index = (props: IProps) => {
 							<Input
 								type='text'
 								size='small'
-								style={{ width: '200px' }}
+								style={{ width: '100px' }}
 								value={state_tags_input}
 								onChange={(e) => {
 									setStateTagsInput(e.target.value)

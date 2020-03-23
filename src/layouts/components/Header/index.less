@@ -17,20 +17,27 @@
                         height: 40px;
                         border-radius: var(--radius_normal);
 
-                        &:hover{
-                              background-color:var(--light_bg_hover) ;
+                        &:hover {
+                              background-color: var(--light_bg_hover);
                         }
                   }
             }
 
             .ant-input-affix-wrapper {
+                  background-color: rgba(0, 0, 0, 0.22);
+                  transition: all ease 0.3s;
+
+                  &:hover {
+                        background-color: rgba(0, 0, 0, 0.4);
+                  }
+
                   .ant-input-prefix {
                         margin-left: 4px;
                         margin-right: 10px;
                   }
 
-                  .ant-input-suffix{
-                        svg{
+                  .ant-input-suffix {
+                        svg {
                               color: white;
                         }
                   }
