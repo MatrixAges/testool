@@ -12,8 +12,9 @@ export default defineConfig({
 	dva: { immer: true, hmr: true },
 	alias: { R: resolve(__dirname, './') },
 	locale: { default: 'en-US', antd: true },
-      dynamicImport: { loading: '@/components/Loader/index' },
-	plugins: [ 'umi-plugin-gh-pages' ],
+	dynamicImport: { loading: '@/components/Loader/index' },
+	base: '/testool/',
+	publicPath: '/testool/',
 	extraBabelPlugins: [
 		[
 			'import',
