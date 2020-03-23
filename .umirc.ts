@@ -4,6 +4,7 @@ import OfflinePlugin from 'offline-plugin'
 import THEME from './src/themes/theme.config'
 
 export default defineConfig({
+	base: './',
 	theme: THEME,
 	antd: {},
 	cssnano: {},
