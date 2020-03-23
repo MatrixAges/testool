@@ -3,7 +3,8 @@
       "name": "testool",
       "author": "matrixage",
       "license": "MIT",
-      "private": true,
+      "private": false,
+      "homepage": ".",
       "main": "src/pages/index/index.tsx",
       "description": "A artifact for the test/interview/exam.",
       "keywords": [
