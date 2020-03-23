@@ -4,7 +4,6 @@ import OfflinePlugin from 'offline-plugin'
 import THEME from './src/themes/theme.config'
 
 export default defineConfig({
-	base: '.',
 	theme: THEME,
 	antd: {},
 	cssnano: {},
@@ -13,7 +12,8 @@ export default defineConfig({
 	dva: { immer: true, hmr: true },
 	alias: { R: resolve(__dirname, './') },
 	locale: { default: 'en-US', antd: true },
-	dynamicImport: { loading: '@/components/Loader/index' },
+      dynamicImport: { loading: '@/components/Loader/index' },
+	plugins: [ 'umi-plugin-gh-pages' ],
 	extraBabelPlugins: [
 		[
 			'import',
