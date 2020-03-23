@@ -8,7 +8,6 @@ export default defineConfig({
 	antd: {},
 	cssnano: {},
 	history: { type: 'hash' },
-	favicon: '/site/favicon.ico',
 	dva: { immer: true, hmr: true },
 	alias: { R: resolve(__dirname, './') },
 	locale: { default: 'en-US', antd: true },
