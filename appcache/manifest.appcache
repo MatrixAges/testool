@@ -1,0 +1,24 @@
+CACHE MANIFEST
+#ver:3/23/2020, 3:37:34 PM
+#plugin:5.0.7
+
+CACHE:
+/testool/vendors~layouts__index~p__index__index.chunk.css
+/testool/vendors~layouts__index~p__index__index.js
+/testool/layouts__index.chunk.css
+/testool/layouts__index.js
+/testool/p__index__index.chunk.css
+/testool/p__index__index.js
+/testool/umi.css
+/testool/umi.js
+/testool/vendors~layouts__index.chunk.css
+/testool/vendors~layouts__index.js
+/testool/vendors~p__index__index.chunk.css
+/testool/vendors~p__index__index.js
+/testool/
+/testool/favicon.ico
+/testool/logo_white.png
+/testool/logo.png
+
+NETWORK:
+*

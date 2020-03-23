@@ -1,0 +1,47 @@
+{
+  "icons": [
+    {
+      "src": "/testool/icon_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/testool/icon_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/testool/icon_384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/testool/icon_256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/testool/icon_192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/testool/icon_128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/testool/icon_96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ],
+  "name": "Testool",
+  "short_name": "TOL",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": ".",
+  "description": "A artifact for the test/interview/exam.",
+  "background_color": "#ffffff",
+  "theme_color": "#f44336"
+}
