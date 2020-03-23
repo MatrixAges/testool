@@ -14,6 +14,7 @@ export default defineConfig({
 	locale: { default: 'en-US', antd: true },
 	dynamicImport: { loading: '@/components/Loader/index' },
 	base: '/testool/',
+	publicPath: '/testool/',
 	extraBabelPlugins: [
 		[
 			'import',
