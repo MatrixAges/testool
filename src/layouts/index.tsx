@@ -4,8 +4,8 @@ import { Helmet } from 'react-helmet'
 import Header from './components/Header'
 import styles from './index.less'
 
-import * as OfflinePluginRuntime from 'offline-plugin/runtime'
-OfflinePluginRuntime.install()
+// import * as OfflinePluginRuntime from 'offline-plugin/runtime'
+// OfflinePluginRuntime.install()
 
 const Index = (props: any) => {
 	const { children } = props

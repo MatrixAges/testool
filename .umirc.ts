@@ -15,6 +15,7 @@ export default defineConfig({
 	dynamicImport: { loading: '@/components/Loader/index' },
 	base: '/testool/',
 	publicPath: '/testool/',
+	plugins: [ 'umi-plugin-gh-pages' ],
 	extraBabelPlugins: [
 		[
 			'import',
