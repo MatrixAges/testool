@@ -7,7 +7,6 @@ export default defineConfig({
 	theme: THEME,
 	antd: {},
 	cssnano: {},
-	history: { type: 'hash' },
 	favicon: 'favicon.ico',
 	dva: { immer: true, hmr: true },
 	alias: { R: resolve(__dirname, './') },

@@ -1,3 +1,4 @@
+import { history } from 'umi'
 import { message } from 'antd'
 import store from 'store'
 import { Service_getAllGroups } from '@/services/index'
@@ -41,7 +42,7 @@ export default {
 			})
 
 			if (groups.length === 0 && store.get('init')) {
-				window.location.reload()
+				history.go(0)
 
 				store.set('init', false)
 			} else {
@@ -56,9 +57,9 @@ export default {
 				message.success(message_success)
 			} else {
 				message.error(message_failed)
-			}
-
-			window.location.reload()
+                  }
+                  
+                  history.go(0)
 		}
 	},
 

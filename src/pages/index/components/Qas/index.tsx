@@ -68,8 +68,29 @@ const Qa = () => {
 				</div>
 			</div>
 			{state_answer_visible && (
-				<div className='answer w_100 border_box flex flex_column'>
-					<div className='content w_100 border_box text_justify'>132123</div>
+				<div
+					className={`${styles.answer} w_100 border_box flex flex_column transition_normal`}
+				>
+					<div className={`${styles.content} w_100 border_box text_justify`}>
+						react 生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？ react
+						生命周期中，在新版本有些将被废弃，也新增了一些生命周期，讲一下？
+					</div>
 					<div className='a_foot w_100 border_box flex justify_between align_center'>
 						<div className='left'>
 							<Rate allowHalf defaultValue={2.5} />

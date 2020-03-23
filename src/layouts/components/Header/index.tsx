@@ -1,5 +1,5 @@
 import React, { memo, Fragment, useState, useEffect } from 'react'
-import { connect, useIntl } from 'umi'
+import { connect, useIntl, history } from 'umi'
 import { Input } from 'antd'
 import { SearchOutlined, SettingOutlined } from '@ant-design/icons'
 import Logo from '../Logo'
