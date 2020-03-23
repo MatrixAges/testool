@@ -52,7 +52,7 @@ export default defineConfig({
 				fingerprints: false,
 				description: 'A artifact for the test/interview/exam.',
 				background_color: '#ffffff',
-				theme_color: '#f44336',
+				theme_color: '#333',
 				crossorigin: 'use-credentials',
 				icons: [
 					{
