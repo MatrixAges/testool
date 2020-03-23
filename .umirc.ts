@@ -8,13 +8,12 @@ export default defineConfig({
 	antd: {},
 	cssnano: {},
 	history: { type: 'hash' },
-	favicon: '/public/site/favicon.ico',
+	favicon: '/site/favicon.ico',
 	dva: { immer: true, hmr: true },
 	alias: { R: resolve(__dirname, './') },
 	locale: { default: 'en-US', antd: true },
 	dynamicImport: { loading: '@/components/Loader/index' },
 	base: '/testool/',
-	publicPath: '/testool/',
 	extraBabelPlugins: [
 		[
 			'import',
