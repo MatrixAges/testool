@@ -6,13 +6,13 @@
       }
 }
 
-@keyframes show_answer {
+@keyframes show {
       from {
-            transform: scale(0);
+            max-height: 0;
       }
 
       to {
-            transform: scale(1);
+            max-height: 1000vh;
       }
 }
 
@@ -48,17 +48,17 @@
                   .q_foot {
                         padding-top: 0;
                         padding-bottom: 10px;
-                        
+
                   }
             }
       }
 
       .answer {
             .content {
-                  transform-origin: top;
-                  animation: show_answer 0.3s;
+                  animation: show 5s ease;
                   padding: 16px 20px;
                   border-top: 1px solid whitesmoke;
+                  overflow-y: scroll;
             }
 
             :global {

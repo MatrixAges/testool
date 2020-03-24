@@ -169,7 +169,7 @@ const Index = (props: IProps) => {
 	if (state_modal_type === 'clear') {
 		return (
 			<Modal
-				className={styles._local}
+                        className={styles._local}
 				{...props_modal}
 				width='360px'
 				title={lang.formatMessage({

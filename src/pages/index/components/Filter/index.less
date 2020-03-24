@@ -1,5 +1,26 @@
+@keyframes show {
+      from {
+            max-height: 0;
+      }
+
+      to {
+            max-height: 10vh;
+      }
+}
+
 ._local {
+      animation: show 0.3s ease;
       margin-bottom: 24px;
 
-      :global {}
+      :global{
+            .select_filter{
+                  width: 160px;
+            }
+
+            @media screen and (max-width:420px) {
+                  .select_filter{
+                        width: 40vw;
+                  }
+            }
+      }
 }

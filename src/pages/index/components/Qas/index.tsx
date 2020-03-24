@@ -53,7 +53,7 @@ const Qa = () => {
 								setStateAnswerVisible(false)
 							}}
 						>
-							<DownCircleOutlined />
+							<UpCircleOutlined />
 						</div>
 					) : (
 						<div
@@ -62,7 +62,7 @@ const Qa = () => {
 								setStateAnswerVisible(true)
 							}}
 						>
-							<UpCircleOutlined />
+							<DownCircleOutlined />
 						</div>
 					)}
 				</div>
@@ -95,9 +95,18 @@ const Qa = () => {
 						<div className='left'>
 							<Rate allowHalf defaultValue={2.5} />
 						</div>
-						<Button type='primary' icon={<CheckCircleOutlined />}>
-							{lang.formatMessage({ id: 'index.btn_pass' })}
-						</Button>
+						<div className='right'>
+							<Button
+								className='mr_12'
+								icon={<UpCircleOutlined />}
+								onClick={() => {
+									setStateAnswerVisible(false)
+								}}
+							/>
+							<Button type='primary' icon={<CheckCircleOutlined />}>
+								{lang.formatMessage({ id: 'index.btn_pass' })}
+							</Button>
+						</div>
 					</div>
 				</div>
 			)}

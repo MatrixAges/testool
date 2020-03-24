@@ -56,6 +56,17 @@ body {
       }
 }
 
+@media screen and (max-width:420px) {
+      .ant-modal-wrap {
+            display: flex;
+            align-items: flex-end;
+
+            .ant-modal {
+                  padding-bottom: 0;
+            }
+      }
+}
+
 .ant-select-dropdown {
       .backdrop_blur();
 }
@@ -129,26 +140,26 @@ body {
       border: @border_section;
 }
 
-.ant-modal{
+.ant-modal {
       .ant-modal-content {
             border: @border_section;
             background-color: @color_background;
             box-sizing: border-box;
-      
+
             .ant-modal-header {
                   background-color: transparent;
                   border-bottom: @border_divide;
             }
-      
+
             .ant-modal-footer {
                   border-top: @border_divide;
             }
-      
+
             .ant-menu-submenu {
                   .backdrop_blur();
                   border: @border_section;
             }
-      
+
             .ant-menu-submenu-popup {
                   background-color: transparent;
             }
@@ -234,7 +245,7 @@ body {
             .ant-table-fixed {
                   background-color: transparent;
 
-                 
+
             }
 
             thead {

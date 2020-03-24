@@ -11,11 +11,11 @@ const Index = () => {
 	return (
 		<div className={`${styles._local} filter_items w_100 border_box flex`}>
 			<div className='filter_item mr_12'>
-				<Select
+                        <Select
+                              className='select_filter'
 					placeholder={lang.formatMessage({
 						id: 'index.filter.times.placeholder'
 					})}
-					style={{ width: '160px' }}
 				>
 					<Option value='1-4' key='1-4'>
 						1 - 4 {lang.formatMessage({ id: 'index.filter.times' })}
@@ -29,11 +29,11 @@ const Index = () => {
 				</Select>
 			</div>
 			<div className='filter_item mr_12'>
-				<Select
+                        <Select
+                               className='select_filter'
 					placeholder={lang.formatMessage({
 						id: 'index.filter.rate.placeholder'
 					})}
-					style={{ width: '160px' }}
 				>
 					<Option value='1-4' key='1-4'>
 						{lang.formatMessage({ id: 'index.filter.rate.below' })} 4

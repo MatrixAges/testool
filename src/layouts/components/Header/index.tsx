@@ -58,15 +58,13 @@ const Index = (props: any) => {
 					<Logo type='white' size={1} />
 				</div>
 				<Input
+					className='input_search'
 					placeholder={lang.formatMessage({ id: 'header.search.placeholder' })}
 					prefix={<SearchOutlined style={{ color: 'white' }} />}
 					allowClear={true}
-					maxLength={36}
+					maxLength={16}
 					size='large'
-					style={{
-						width: '680px',
-						border: 'none'
-					}}
+					type='search'
 				/>
 				<div className='right flex align_center'>
 					<div

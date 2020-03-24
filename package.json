@@ -29,6 +29,7 @@
             "@umijs/test": "^3.0.9",
             "dexie": "^2.0.4",
             "dva-model-extend": "^0.1.2",
+            "is-mobile": "^2.2.1",
             "lodash": "^4.17.15",
             "moment": "^2.24.0",
             "qs": "^6.9.1",
