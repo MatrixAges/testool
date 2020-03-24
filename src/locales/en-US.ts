@@ -31,6 +31,7 @@ export default {
       'index.modal.add_group.placeholder': 'toggle/add group',
 	'index.modal.add_group.success': 'add group success',
 	'index.modal.add_group.failed': 'add group failed',
+	'index.modal.add_group.repeat': 'group has exsited',
 	'index.modal.add_qa.question.placeholder': 'Please input the question',
 	'index.modal.add_qa.answer.placeholder': 'Please input the answer (supported markdown)',
 	'index.modal.add_qa.tags.placeholder': 'Please add tags (at least 2)',

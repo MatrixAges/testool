@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { connect, useIntl } from 'umi'
+import { message } from 'antd'
 import store from 'store'
 import Modal from './components/Modal'
 import Header from './components/Header'
@@ -34,20 +35,26 @@ const Index = (props: any) => {
 			})
 		},
 		onAddGroup (name: string) {
-			dispatch({
-				type: 'index/addGroup',
-				payload: {
-					name,
-					message_success: lang.formatMessage({
-						id: 'index.modal.add_group.success'
-					}),
-					message_failed: lang.formatMessage({
-						id: 'index.modal.add_group.failed'
+			if (groups.indexOf(name) === -1) {
+				dispatch({
+					type: 'index/addGroup',
+					payload: {
+						name,
+						message_success: lang.formatMessage({
+							id: 'index.modal.add_group.success'
+						}),
+						message_failed: lang.formatMessage({
+							id: 'index.modal.add_group.failed'
+						})
+					}
+				})
+			} else {
+				message.warn(
+					lang.formatMessage({
+						id: 'index.modal.add_group.repeat'
 					})
-				}
-			})
-
-			dispatch({ type: 'app/query' })
+				)
+			}
 		},
 		onChangeCurrentGroup (v: string) {
 			dispatch({

@@ -1,8 +1,6 @@
-import { history } from 'umi'
 import { message } from 'antd'
 import store from 'store'
-import { Service_getAllGroups } from '@/services/index'
-import { Service_deleteGroup } from '@/services/app'
+import { Service_addTableGroups, Service_getAllGroups, Service_deleteGroup } from '@/services/app'
 
 export default {
 	namespace: 'app',
@@ -20,15 +18,19 @@ export default {
 
 	effects: {
 		*query ({}, { call, put }) {
+			const logs = yield call(Service_addTableGroups)
+
+			if (!logs) return
+
 			const groups = yield call(Service_getAllGroups)
 
 			if (groups.length === 0) {
 				store.set('current_group', null)
 			}
 
-                  const c_group = store.get('current_group')
-                  
-                  console.log(groups);
+			console.log(groups)
+
+			const c_group = store.get('current_group')
 
 			yield put({
 				type: 'updateState',
@@ -42,16 +44,8 @@ export default {
 							: c_group
 				}
 			})
-
-			if (groups.length === 0 && store.get('init')) {
-				history.go(0)
-
-				store.set('init', false)
-			} else {
-				store.set('init', true)
-			}
 		},
-		*deleteGroup ({ payload }, { call }) {
+		*deleteGroup ({ payload }, { call, put }) {
 			const { group, message_success, message_failed } = payload
 			const res = yield call(Service_deleteGroup, group)
 
@@ -61,7 +55,7 @@ export default {
 				message.error(message_failed)
                   }
                   
-                  history.go(0)
+                  yield put({type:'app/query'})
 		}
 	},
 

@@ -31,6 +31,7 @@ export default {
 	'index.modal.add_group.placeholder': '切换/添加 分组',
 	'index.modal.add_group.success': '分组添加成功',
 	'index.modal.add_group.failed': '分组添加失败',
+	'index.modal.add_group.repeat': '分组已经存在',
 	'index.modal.add_qa.question.placeholder': '请输入问题',
 	'index.modal.add_qa.answer.placeholder': '请输入答案（支持markdown）',
 	'index.modal.add_qa.tags.placeholder': '请添加标签（至少两个）',
