@@ -26,7 +26,9 @@ export default {
 				store.set('current_group', null)
 			}
 
-			const c_group = store.get('current_group')
+                  const c_group = store.get('current_group')
+                  
+                  console.log(groups);
 
 			yield put({
 				type: 'updateState',
