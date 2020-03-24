@@ -11,8 +11,8 @@ export default defineConfig({
 	favicon: 'favicon.ico',
 	dva: { immer: true, hmr: true },
 	alias: { R: resolve(__dirname, './') },
-	locale: { default: 'en-US', antd: true },
 	dynamicImport: { loading: '@/components/Loader/index' },
+	locale: { baseNavigator: false, default: 'en-US', antd: true },
 	base: '/testool/',
 	publicPath: '/testool/',
 	links: [
