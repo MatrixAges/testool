@@ -37,7 +37,7 @@
     }
   ],
   "name": "Testool",
-  "short_name": "TOL",
+  "short_name": "Testool",
   "orientation": "portrait",
   "display": "standalone",
   "start_url": ".",
