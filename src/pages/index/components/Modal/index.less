@@ -3,8 +3,18 @@
             .answer {
                   min-height: 50vh;
                   max-height: 80vh;
+                  background-color: transparent;
+
+                  @media screen and (max-width:840px) {
+                        resize: none;
+                  }
+
+                  .ant-input {
+                        background-color: white;
+                  }
             }
-            .ant-tag{
+
+            .ant-tag {
                   background-color: white;
             }
       }

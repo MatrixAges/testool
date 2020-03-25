@@ -8,7 +8,7 @@ export default {
 	'layout.modal.theme_light': '深色',
 	'layout.modal.name_loadway': '加载方式',
 	'layout.modal.loadway_scroll': '滚动',
-	'layout.modal.loadway_page': '翻页',
+	'layout.modal.loadway_page': '分页',
 	'layout.modal.name_analysis': '分析',
 	'layout.modal.name_import': '导入',
 	'layout.modal.name_export': '导出',
@@ -36,5 +36,7 @@ export default {
 	'index.modal.add_qa.answer.placeholder': '请输入答案（支持markdown）',
 	'index.modal.add_qa.tags.placeholder': '请添加标签（至少两个）',
 	'index.modal.add_qa.tags.count.warn': '最多添加5个标签',
-	'index.modal.add_qa.tags.length.warn': '标签不超过12个字符'
+	'index.modal.add_qa.tags.length.warn': '标签不超过12个字符',
+	'index.modal.add_qa.success': 'QA添加成功',
+	'index.modal.add_qa.failed': 'QA添加失败'
 }

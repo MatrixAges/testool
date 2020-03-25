@@ -48,7 +48,7 @@ export default defineConfig({
 		memo.plugin('webpack-pwa-manifest').use(WebpackPwaManifest, [
 			{
 				name: 'Testool',
-				short_name: 'TOL',
+				short_name: 'Testool',
 				fingerprints: false,
 				description: 'A artifact for the test/interview/exam.',
 				background_color: '#ffffff',

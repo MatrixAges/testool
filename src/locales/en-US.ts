@@ -36,5 +36,7 @@ export default {
 	'index.modal.add_qa.answer.placeholder': 'Please input the answer (supported markdown)',
 	'index.modal.add_qa.tags.placeholder': 'Please add tags (at least 2)',
 	'index.modal.add_qa.tags.count.warn': 'at most add 5 tags',
-	'index.modal.add_qa.tags.length.warn': 'tag at most length 12',
+      'index.modal.add_qa.tags.length.warn': 'tag at most length 12',
+      'index.modal.add_qa.success': 'add qa success',
+	'index.modal.add_qa.failed': 'add qa failed',
 }

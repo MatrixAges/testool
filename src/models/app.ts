@@ -11,13 +11,20 @@ export default {
 	},
 
 	subscriptions: {
-		setup ({ dispatch }) {
-			dispatch({ type: 'query' })
+		setup ({ dispatch, history }) {
+			history.listen((location: any) => {
+				dispatch({
+					type: 'query',
+					payload: {
+						...location.query
+					}
+				})
+			})
 		}
 	},
 
 	effects: {
-		*query ({}, { call, put }) {
+		*query ({}, { call, put, select }) {
 			const logs = yield call(Service_addTableGroups)
 
 			if (!logs) return
@@ -27,8 +34,6 @@ export default {
 			if (groups.length === 0) {
 				store.set('current_group', null)
 			}
-
-			console.log(groups)
 
 			const c_group = store.get('current_group')
 
@@ -44,6 +49,15 @@ export default {
 							: c_group
 				}
 			})
+
+			const { current_group } = yield select(({ app }) => app)
+
+			if (!current_group) return
+
+			yield put({
+				type: 'index/query',
+				payload: { current_group }
+			})
 		},
 		*deleteGroup ({ payload }, { call, put }) {
 			const { group, message_success, message_failed } = payload
@@ -53,9 +67,9 @@ export default {
 				message.success(message_success)
 			} else {
 				message.error(message_failed)
-                  }
-                  
-                  yield put({type:'app/query'})
+			}
+
+			yield put({ type: 'app/query' })
 		}
 	},
 

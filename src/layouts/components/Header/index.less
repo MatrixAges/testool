@@ -14,15 +14,30 @@
             .input_search {
                   width: 680px;
                   border: none;
+
+                  @media screen and (max-width:840px) {
+                        width: 50vw;
+                        display: none;
+                  }
             }
 
-            @media screen and (max-width:840px) {
-                  .input_search {
-                        width: 60vw;
+            .left {
+                  left: 10px;
+
+                  @media screen and (max-width:840px) {
+                        left: 16px;
                   }
             }
 
             .right {
+                  right: 10px;
+
+                  @media screen and (max-width:840px) {
+                        .btn_search {
+                              display: flex;
+                        }
+                  }
+
                   .icon_wrap {
                         width: 40px;
                         height: 40px;

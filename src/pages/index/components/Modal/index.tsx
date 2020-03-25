@@ -2,6 +2,7 @@ import React, { memo, useState } from 'react'
 import { useIntl } from 'umi'
 import { Modal, Select, Input, Button, Form, Tag, message } from 'antd'
 import { CheckOutlined, PlusOutlined } from '@ant-design/icons'
+import { IQas } from '@/db/models/Qas'
 import styles from './index.less'
 
 const { Option } = Select
@@ -14,10 +15,10 @@ interface IProps {
 	current_group: string
 	visible: boolean
 	modal_type: string
-	onOk: () => void
 	onCancel: () => void
 	onAddGroup: (name: string) => void
 	onChangeCurrentGroup: (v: string) => void
+	onAddQa: (params: IQas) => void
 }
 
 const Index = (props: IProps) => {
@@ -27,19 +28,20 @@ const Index = (props: IProps) => {
 		current_group,
 		visible,
 		modal_type,
-		onOk,
 		onCancel,
 		onAddGroup,
-		onChangeCurrentGroup
+		onChangeCurrentGroup,
+		onAddQa
 	} = props
 	const lang = useIntl()
 	const [ form ] = useForm()
+	const { validateFields } = form
 
 	const [ state_tags, setStateTags ] = useState([])
 	const [ state_tags_input, setStateTagsInput ] = useState('')
 	const [ state_tags_input_visible, setStateTagsInputVisible ] = useState(false)
 
-	const delTag = (tag) => {
+	const delTag = (tag: string) => {
 		setStateTags(state_tags.filter((item) => item !== tag))
 	}
 
@@ -69,7 +71,6 @@ const Index = (props: IProps) => {
 	const props_modal = {
 		title,
 		visible,
-		onOk,
 		onCancel,
 		centered: true,
 		maskClosable: true,
@@ -120,7 +121,19 @@ const Index = (props: IProps) => {
 
 	if (modal_type === 'add_qa') {
 		return (
-			<Modal className={styles._local} {...props_modal}>
+			<Modal
+				className={styles._local}
+				{...props_modal}
+				onOk={async () => {
+                              const {question,answer} = await validateFields()
+                              
+					onAddQa({
+						question,
+						answer,
+						tags: state_tags
+					})
+				}}
+			>
 				<Form form={form}>
 					<Item
 						name='question'

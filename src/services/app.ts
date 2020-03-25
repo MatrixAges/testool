@@ -22,7 +22,7 @@ export const Service_deleteGroup = async (group: string): Promise<boolean> => {
 	const groups = new Groups()
 
 	try {
-		await groups.delGroups(group)
+		await groups.delGroup(group)
 	} catch (_) {
 		return false
 	}

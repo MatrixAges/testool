@@ -22,7 +22,7 @@ export default class Groups extends Dexie {
 		return await this.open()
 	}
 
-	async addGroups (name: string) {
+	async addGroup (name: string) {
 		await this.init()
 
 		this.transaction('rw', this.groups, async () => {
@@ -30,7 +30,7 @@ export default class Groups extends Dexie {
 		})
 	}
 
-	async delGroups (name: string) {
+	async delGroup (name: string) {
 		let id: number
 
 		const origin_groups = await this.getOriginGroups()

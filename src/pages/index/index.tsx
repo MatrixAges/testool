@@ -6,6 +6,7 @@ import Modal from './components/Modal'
 import Header from './components/Header'
 import Filter from './components/Filter'
 import Qas from './components/Qas'
+import { IQas } from '@/db/models/Qas'
 import styles from './index.less'
 
 const Index = (props: any) => {
@@ -27,7 +28,6 @@ const Index = (props: any) => {
 		modal_type,
 		visible: modal_visible,
 		title: enum_modal_title[modal_type],
-		onOk () {},
 		onCancel () {
 			dispatch({
 				type: 'index/updateState',
@@ -68,6 +68,21 @@ const Index = (props: any) => {
 			})
 
 			store.set('current_group', v)
+		},
+            onAddQa(params: IQas) {
+			dispatch({
+				type: 'index/addQa',
+				payload: {
+					current_group,
+					params,
+					message_success: lang.formatMessage({
+						id: 'index.modal.add_qa.success'
+					}),
+					message_failed: lang.formatMessage({
+						id: 'index.modal.add_qa.failed'
+					})
+				}
+			})
 		}
 	}
 
