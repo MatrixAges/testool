@@ -56,9 +56,13 @@ export default class Qas extends Dexie {
 		})
 	}
 
-	async getQas () {
+	async getQas (page?: number, page_size?: number) {
 		await this.init()
 
-		return await this.qas.toArray()
+		const _page = page ? page - 1 : 0
+		const _page_size = page_size ? page_size : 10
+		const _offset = _page * _page_size
+
+		return await this.qas.orderBy('id').offset(_offset).limit(_page_size).toArray()
 	}
 }

@@ -49,7 +49,7 @@ const Index = (props: IProps) => {
 		setStateTagsInput('')
 		setStateTagsInputVisible(false)
 
-		if (state_tags.length > 5) {
+		if (state_tags.length > 4) {
 			message.warn(lang.formatMessage({ id: 'index.modal.add_qa.tags.count.warn' }))
 
 			return
@@ -125,8 +125,8 @@ const Index = (props: IProps) => {
 				className={styles._local}
 				{...props_modal}
 				onOk={async () => {
-                              const {question,answer} = await validateFields()
-                              
+					const { question, answer } = await validateFields()
+
 					onAddQa({
 						question,
 						answer,

@@ -24,7 +24,7 @@ export default {
 	},
 
 	effects: {
-		*query ({}, { call, put, select }) {
+		*query ({ payload }, { call, put, select }) {
 			const logs = yield call(Service_addTableGroups)
 
 			if (!logs) return
@@ -56,7 +56,7 @@ export default {
 
 			yield put({
 				type: 'index/query',
-				payload: { current_group }
+				payload: { current_group, ...payload }
 			})
 		},
 		*deleteGroup ({ payload }, { call, put }) {
@@ -69,7 +69,7 @@ export default {
 				message.error(message_failed)
 			}
 
-			yield put({ type: 'app/query' })
+			yield put({ type: 'query' })
 		}
 	},
 

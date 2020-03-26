@@ -6,14 +6,14 @@ import Modal from './components/Modal'
 import Header from './components/Header'
 import Filter from './components/Filter'
 import Qas from './components/Qas'
-import { IQas } from '@/db/models/Qas'
-import styles from './index.less'
+import { IQas, IRate } from '@/db/models/Qas'
 
 const Index = (props: any) => {
 	const {
+		loading,
 		dispatch,
 		app: { groups, current_group },
-		index: { modal_visible, modal_type, filter_visible }
+		index: { modal_visible, modal_type, filter_visible, qas }
 	} = props
 	const lang = useIntl()
 
@@ -69,7 +69,7 @@ const Index = (props: any) => {
 
 			store.set('current_group', v)
 		},
-            onAddQa(params: IQas) {
+		onAddQa (params: IQas) {
 			dispatch({
 				type: 'index/addQa',
 				payload: {
@@ -118,7 +118,11 @@ const Index = (props: any) => {
 	}
 
 	const props_qas = {
+		qas,
 		groups,
+            dispatch,
+            current_group,
+		loading: loading.effects['index/query'],
 		onAddGroup () {
 			dispatch({
 				type: 'index/updateState',
@@ -127,11 +131,26 @@ const Index = (props: any) => {
 					modal_type: 'add_group'
 				}
 			})
+		},
+		rate (params: IRate) {
+			dispatch({
+				type: 'index/rate',
+				payload: {
+					current_group,
+					params,
+					message_success: lang.formatMessage({
+						id: 'index.modal.rate.success'
+					}),
+					message_failed: lang.formatMessage({
+						id: 'index.modal.rate.failed'
+					})
+				}
+			})
 		}
 	}
 
 	return (
-		<div className={`${styles._local} w_100 border_box flex flex_column`}>
+		<div className='w_100 border_box flex flex_column'>
 			<Modal {...props_modal} />
 			{groups.length > 0 && <Header {...props_header} />}
 			{filter_visible && <Filter />}
@@ -140,4 +159,4 @@ const Index = (props: any) => {
 	)
 }
 
-export default memo(connect(({ app, index }: any) => ({ app, index }))(Index))
+export default memo(connect(({ app, index, loading }: any) => ({ app, index, loading }))(Index))

@@ -3,16 +3,25 @@
             .empty_wrap {
                   padding: 120px 0;
             }
+
+            .ReactVirtualized__List {
+                  outline: none;
+                  overflow: visible !important;
+
+                  .ReactVirtualized__Grid__innerScrollContainer {
+                        overflow: visible !important;
+                  }
+            }
       }
 }
 
 @keyframes show {
       from {
-            max-height: 0;
+            transform: scaleY(0);
       }
 
       to {
-            max-height: 1000vh;
+            transform: scaleY(1);
       }
 }
 
@@ -20,8 +29,12 @@
       box-shadow: var(--light_box_shadow_card);
       border-radius: var(--radius_normal);
       background-color: white;
-      overflow: hidden;
       margin-bottom: 12px;
+      overflow: hidden;
+
+      @media screen and (max-width:420px) {
+            box-shadow: none;
+      }
 
       :global {
             .icon_wrap {
@@ -55,7 +68,8 @@
 
       .answer {
             .content {
-                  animation: show 5s ease;
+                  transform-origin: top;
+                  animation: show 0.3s ease;
                   padding: 16px 20px;
                   border-top: 1px solid whitesmoke;
                   overflow-y: scroll;
@@ -65,6 +79,14 @@
                   .a_foot {
                         padding: 16px 20px;
                         background-color: whitesmoke;
+
+                        @media screen and (max-width:420px) {
+                              background-color: #eee;
+                        }
+
+                        .ant-rate {
+                              color: var(--primary-color);
+                        }
                   }
             }
       }

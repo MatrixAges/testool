@@ -16,14 +16,17 @@ export default modelExtend(pageModel, {
 	subscriptions: {},
 
 	effects: {
-		*query ({ payload }, { call, put }) {
-			const { current_group } = payload
+		*query ({ payload }, { call, put, select }) {
+			const { qas } = yield select(({ index }) => index)
+			const { current_group, page, page_size } = payload
 
-			const res = yield call(Service_getQas, current_group)
+			const res = yield call(Service_getQas, current_group, page, page_size)
+
+			console.log(res)
 
 			yield put({
 				type: 'updateState',
-				payload: { qas: res }
+				payload: { qas: qas.concat(res) }
 			})
 		},
 		*addGroup ({ payload }, { call, put }) {
@@ -67,13 +70,13 @@ export default modelExtend(pageModel, {
 
 			const res = yield call(Service_rate, current_group, params)
 
-			console.log(res)
-
 			if (res) {
 				message.success(message_success)
 			} else {
 				message.error(message_failed)
 			}
+
+			yield put({ type: 'query', payload: { current_group } })
 		}
 	}
 })
