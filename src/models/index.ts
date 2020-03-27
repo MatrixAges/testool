@@ -10,19 +10,37 @@ export default modelExtend(pageModel, {
 		modal_visible: false,
 		modal_type: 'add_group',
 		filter_visible: false,
-		qas: []
+		qas: [],
+		no_more: false
 	},
 
 	subscriptions: {},
 
 	effects: {
-		*query ({ payload }, { call, put, select }) {
+		*query ({ payload }, { call, put }) {
+			const { current_group } = payload
+
+			const res = yield call(Service_getQas, current_group)
+
+			yield put({
+				type: 'updateState',
+				payload: { qas: res }
+			})
+		},
+		*loadMore ({ payload }, { call, put, select }) {
 			const { qas } = yield select(({ index }) => index)
 			const { current_group, page, page_size } = payload
 
 			const res = yield call(Service_getQas, current_group, page, page_size)
 
-			console.log(res)
+			if (res.length === 0) {
+				yield put({
+					type: 'updateState',
+					payload: { no_more: true }
+				})
+
+				return
+			}
 
 			yield put({
 				type: 'updateState',
@@ -65,8 +83,15 @@ export default modelExtend(pageModel, {
 				payload: { modal_visible: false }
 			})
 		},
-		*rate ({ payload }, { call, put }) {
-			const { current_group, params, message_success, message_failed } = payload
+		*rate ({ payload }, { call, put, select }) {
+			const { qas } = yield select(({ index }) => index)
+			const {
+				current_group,
+				params: { id, rate, index },
+				message_success,
+				message_failed
+			} = payload
+			const params = { id, rate }
 
 			const res = yield call(Service_rate, current_group, params)
 
@@ -76,7 +101,12 @@ export default modelExtend(pageModel, {
 				message.error(message_failed)
 			}
 
-			yield put({ type: 'query', payload: { current_group } })
+			qas[index].rates.push({ rate, create_at: new Date().valueOf() })
+
+			yield put({
+				type: 'updateState',
+				payload: { qas: qas }
+			})
 		}
 	}
 })

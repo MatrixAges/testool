@@ -8,22 +8,25 @@ import {
 	UpCircleOutlined,
 	DownCircleOutlined,
 	CheckCircleOutlined,
-	PlusOutlined
+	PlusOutlined,
+	LoadingOutlined
 } from '@ant-design/icons'
 import { List, AutoSizer, WindowScroller, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
-import { IQas, IRate } from '@/db/models/Qas'
+import { IQas } from '@/db/models/Qas'
+import { IORate } from '../../index'
 import styles from './index.less'
 
 interface IQa extends IQas {
+	index: number
 	style: any
 	ref: any
 	measure: () => any
-	rate: (params: IRate) => void
+	rate: (params: IORate) => void
 }
 
 const Qa = (props: IQa) => {
-	const { id, question, answer, tags, rates, style, ref, measure, rate } = props
+	const { id, index, question, answer, tags, rates, style, ref, measure, rate } = props
 	const [ state_answer_visible, setStateAnswerVisible ] = useState(false)
 	const [ state_rate, setStateRate ] = useState(5)
 	const lang = useIntl()
@@ -129,7 +132,7 @@ const Qa = (props: IQa) => {
 									type='primary'
 									icon={<CheckCircleOutlined />}
 									onClick={() => {
-										rate({ id, rate: state_rate })
+										rate({ id, rate: state_rate, index })
 									}}
 								>
 									{lang.formatMessage({ id: 'index.btn_pass' })}
@@ -144,18 +147,19 @@ const Qa = (props: IQa) => {
 }
 
 interface IProps {
+	loading: boolean
+	no_more: boolean
 	qas: Array<IQas>
 	groups: Array<string>
-	loading: boolean
 	current_group: string
 	dispatch: (params: any) => void
 	onAddGroup: () => void
-	rate: (params: IRate) => void
+	rate: (params: IORate) => void
 }
 
 const Index = (props: IProps) => {
-	const { dispatch, qas, groups, loading, onAddGroup, rate, current_group } = props
-	const [ state_page, setStatePage ] = useState(0)
+	const { dispatch, loading, no_more, qas, groups, onAddGroup, rate, current_group } = props
+	const [ state_page, setStatePage ] = useState(1)
 	const lang = useIntl()
 
 	const cache = new CellMeasurerCache()
@@ -173,6 +177,7 @@ const Index = (props: IProps) => {
 			>
 				{({ registerChild, measure }) => (
 					<Qa
+						index={index}
 						ref={registerChild}
 						measure={measure}
 						{...item}
@@ -185,10 +190,20 @@ const Index = (props: IProps) => {
 	}
 
 	const onBottom = () => {
-		console.log('bottom')
+		if (no_more || loading) return
+
+		dispatch({
+			type: 'index/loadMore',
+			payload: {
+				current_group,
+				page: state_page + 1
+			}
+		})
+
+		setStatePage(state_page + 1)
 	}
 
-	useBottomScrollListener(onBottom)
+	useBottomScrollListener(onBottom, 1000, 0)
 
 	return (
 		<div className={`${styles._local} w_100`}>
@@ -214,6 +229,21 @@ const Index = (props: IProps) => {
 							</AutoSizer>
 						)}
 					</WindowScroller>
+					{loading && (
+						<div className='loading_more w_100 border_box pt_30 pb_30 flex justify_center'>
+							<LoadingOutlined
+								className='loading'
+								style={{ fontSize: '24px' }}
+							/>
+						</div>
+					)}
+					{no_more && (
+						<div className='loading_more w_100 border_box pt_30 pb_30 flex justify_center'>
+							<span className='color_aaa'>
+								{lang.formatMessage({ id: 'index.no_more' })}
+							</span>
+						</div>
+					)}
 				</div>
 			) : (
 				<div className='empty_wrap flex flex_column justify_center align_center'>

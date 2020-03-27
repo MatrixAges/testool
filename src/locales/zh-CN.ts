@@ -40,5 +40,6 @@ export default {
 	'index.modal.add_qa.success': 'QA添加成功',
 	'index.modal.add_qa.failed': 'QA添加失败',
 	'index.modal.rate.success': '评分成功',
-	'index.modal.rate.failed': '评分失败'
+	'index.modal.rate.failed': '评分失败',
+	'index.no_more': '没有更多了'
 }

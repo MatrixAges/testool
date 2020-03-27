@@ -28,7 +28,7 @@ export default {
 	'index.filter.rate.below': 'below',
 	'index.modal.title.add_group': 'Groups',
 	'index.modal.title.add_qa': 'Add Qa',
-      'index.modal.add_group.placeholder': 'toggle/add group',
+	'index.modal.add_group.placeholder': 'toggle/add group',
 	'index.modal.add_group.success': 'add group success',
 	'index.modal.add_group.failed': 'add group failed',
 	'index.modal.add_group.repeat': 'group has exsited',
@@ -36,9 +36,10 @@ export default {
 	'index.modal.add_qa.answer.placeholder': 'Please input the answer (supported markdown)',
 	'index.modal.add_qa.tags.placeholder': 'Please add tags (at least 2)',
 	'index.modal.add_qa.tags.count.warn': 'at most add 5 tags',
-      'index.modal.add_qa.tags.length.warn': 'tag at most length 12',
-      'index.modal.add_qa.success': 'add qa success',
-      'index.modal.add_qa.failed': 'add qa failed',
-      'index.modal.rate.success': 'rate success',
+	'index.modal.add_qa.tags.length.warn': 'tag at most length 12',
+	'index.modal.add_qa.success': 'add qa success',
+	'index.modal.add_qa.failed': 'add qa failed',
+	'index.modal.rate.success': 'rate success',
 	'index.modal.rate.failed': 'rate failed',
+	'index.no_more': 'no more'
 }

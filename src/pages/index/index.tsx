@@ -8,12 +8,16 @@ import Filter from './components/Filter'
 import Qas from './components/Qas'
 import { IQas, IRate } from '@/db/models/Qas'
 
+export interface IORate extends IRate {
+	index: number
+}
+
 const Index = (props: any) => {
 	const {
 		loading,
 		dispatch,
 		app: { groups, current_group },
-		index: { modal_visible, modal_type, filter_visible, qas }
+		index: { modal_visible, modal_type, filter_visible, qas,no_more }
 	} = props
 	const lang = useIntl()
 
@@ -117,12 +121,13 @@ const Index = (props: any) => {
 		}
 	}
 
-	const props_qas = {
+      const props_qas = {
+            no_more,
 		qas,
 		groups,
-            dispatch,
-            current_group,
-		loading: loading.effects['index/query'],
+		dispatch,
+		current_group,
+		loading: loading.effects['index/loadMore'],
 		onAddGroup () {
 			dispatch({
 				type: 'index/updateState',
@@ -132,7 +137,7 @@ const Index = (props: any) => {
 				}
 			})
 		},
-		rate (params: IRate) {
+		rate (params: IORate) {
 			dispatch({
 				type: 'index/rate',
 				payload: {
