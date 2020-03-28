@@ -17,14 +17,14 @@ export default modelExtend(pageModel, {
 
 	state: {
 		modal_visible: false,
-		modal_type: 'add_group',
+		modal_type: '',
 		filter_visible: false,
 		qas: [],
 		total: 0,
 		no_more: false,
 		current_item: {},
-		current_id: {},
-		current_index: {}
+		current_id: 0,
+		current_index: 0
 	},
 
 	subscriptions: {},

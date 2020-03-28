@@ -34,10 +34,13 @@ const Index = (props: any) => {
 		modal_type,
 		visible: modal_visible,
 		title: enum_modal_title[modal_type],
-		onCancel () {
+            onCancel() {
 			dispatch({
 				type: 'index/updateState',
-				payload: { modal_visible: false }
+				payload: {
+					modal_visible: false,
+					current_item: {}
+				}
 			})
 		},
 		onAddGroup (name: string) {

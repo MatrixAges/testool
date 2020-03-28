@@ -62,6 +62,12 @@ const Index = (props: IProps) => {
 		[ current_item ]
 	)
 
+	useEffect(() => {
+		if (modal_type) {
+			setStateTags(current_item.tags)
+		}
+	}, [])
+
 	const delTag = (tag: string) => {
 		setStateTags(state_tags.filter((item) => item !== tag))
 	}
@@ -92,11 +98,22 @@ const Index = (props: IProps) => {
 	const props_modal = {
 		title,
 		visible,
-		onCancel,
 		centered: true,
-		forceRender: true,
 		maskClosable: true,
-		destroyOnClose: true
+		destroyOnClose: true,
+		getContainer: false,
+		onCancel () {
+			setStateTags([])
+
+			if (modal_type === 'edit_qa') {
+				setFieldsValue({
+					question: null,
+					answer: null
+				})
+			}
+
+			onCancel()
+		}
 	}
 
 	const onOk = async () => {
@@ -131,6 +148,7 @@ const Index = (props: IProps) => {
 	}
 
 	let _footer: object = {}
+	let _initialValue: object = {}
 
 	if (modal_type === 'edit_qa') {
 		_footer = {
@@ -151,7 +169,6 @@ const Index = (props: IProps) => {
 			)
 		}
 	}
-
 	if (modal_type === 'add_group') {
 		return (
 			<Modal className={styles._local} {...props_modal} width='360px' footer={null}>
@@ -234,35 +251,37 @@ const Index = (props: IProps) => {
 							})}
 						/>
 					</Item>
-					<div className='flex flex_wrap'>
-						{state_tags.map((tag) => (
-							<Tag key={tag} closable onClose={() => delTag(tag)}>
-								{tag}
-							</Tag>
-						))}
-						{state_tags_input_visible && (
-							<Input
-								type='text'
-								size='small'
-								style={{ width: '100px' }}
-								value={state_tags_input}
-								onChange={(e) => {
-									setStateTagsInput(e.target.value)
-								}}
-								onBlur={onComfirmAddTag}
-								onPressEnter={onComfirmAddTag}
-							/>
-						)}
-						{!state_tags_input_visible && (
-							<Button
-								size='small'
-								icon={<PlusOutlined />}
-								onClick={() => {
-									setStateTagsInputVisible(true)
-								}}
-							/>
-						)}
-					</div>
+					{state_tags && (
+						<div className='flex flex_wrap'>
+							{state_tags.map((tag) => (
+								<Tag key={tag} closable onClose={() => delTag(tag)}>
+									{tag}
+								</Tag>
+							))}
+							{state_tags_input_visible && (
+								<Input
+									type='text'
+									size='small'
+									style={{ width: '100px' }}
+									value={state_tags_input}
+									onChange={(e) => {
+										setStateTagsInput(e.target.value)
+									}}
+									onBlur={onComfirmAddTag}
+									onPressEnter={onComfirmAddTag}
+								/>
+							)}
+							{!state_tags_input_visible && (
+								<Button
+									size='small'
+									icon={<PlusOutlined />}
+									onClick={() => {
+										setStateTagsInputVisible(true)
+									}}
+								/>
+							)}
+						</div>
+					)}
 				</Form>
 			</Modal>
 		)
