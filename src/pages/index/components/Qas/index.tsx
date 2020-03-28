@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect } from 'react'
 import { useIntl } from 'umi'
-import { Tag, Rate, Button, Empty } from 'antd'
+import { Tag, Rate, Button, Empty, Pagination } from 'antd'
 import {
 	CheckOutlined,
 	StarOutlined,
@@ -8,8 +8,7 @@ import {
 	UpCircleOutlined,
 	DownCircleOutlined,
 	CheckCircleOutlined,
-	PlusOutlined,
-	LoadingOutlined
+	PlusOutlined
 } from '@ant-design/icons'
 import { List, AutoSizer, WindowScroller, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
@@ -23,10 +22,11 @@ interface IQa extends IQas {
 	ref: any
 	measure: () => any
 	rate: (params: IORate) => void
+	onEdit: (id: number, index: number) => void
 }
 
 const Qa = (props: IQa) => {
-	const { id, index, question, answer, tags, rates, style, ref, measure, rate } = props
+	const { id, index, question, answer, tags, rates, style, ref, measure, rate, onEdit } = props
 	const [ state_answer_visible, setStateAnswerVisible ] = useState(false)
 	const [ state_rate, setStateRate ] = useState(5)
 	const lang = useIntl()
@@ -64,7 +64,10 @@ const Qa = (props: IQa) => {
 							</div>
 						</div>
 						<div className='right flex align_center'>
-							<div className='icon_wrap flex justify_center align_center transition_normal cursor_point'>
+							<div
+								className='icon_wrap flex justify_center align_center transition_normal cursor_point'
+								onClick={() => onEdit(id, index)}
+							>
 								<EditOutlined />
 							</div>
 						</div>
@@ -148,8 +151,10 @@ const Qa = (props: IQa) => {
 
 interface IProps {
 	loading: boolean
+	loadway: string
 	no_more: boolean
 	qas: Array<IQas>
+	total: number
 	groups: Array<string>
 	current_group: string
 	dispatch: (params: any) => void
@@ -158,11 +163,53 @@ interface IProps {
 }
 
 const Index = (props: IProps) => {
-	const { dispatch, loading, no_more, qas, groups, onAddGroup, rate, current_group } = props
+	const {
+		dispatch,
+		loading,
+		loadway,
+		no_more,
+		qas,
+		total,
+		groups,
+		onAddGroup,
+		current_group,
+		rate
+	} = props
 	const [ state_page, setStatePage ] = useState(1)
 	const lang = useIntl()
-
 	const cache = new CellMeasurerCache()
+
+	useEffect(
+		() => {
+			window.scrollTo({ top: 0 })
+
+			setStatePage(1)
+
+			dispatch({
+				type: 'index/updateState',
+				payload: { no_more: false, qas: [] }
+			})
+
+			dispatch({
+				type: 'index/query',
+				payload: { current_group, page: 1 }
+			})
+		},
+		[ loadway ]
+	)
+
+      const onEdit = (id: number, index: number) => {
+		dispatch({
+			type: 'index/updateState',
+			payload: {
+				modal_visible: true,
+				modal_type: 'edit_qa',
+				current_item: qas[index],
+				current_id: id,
+				current_index: index
+			}
+		})
+	}
 
 	const rowRenderer = ({ index, parent, key, style }) => {
 		const item = qas[index]
@@ -182,6 +229,7 @@ const Index = (props: IProps) => {
 						measure={measure}
 						{...item}
 						rate={rate}
+						onEdit={onEdit}
 						style={style}
 					/>
 				)}
@@ -190,7 +238,7 @@ const Index = (props: IProps) => {
 	}
 
 	const onBottom = () => {
-		if (no_more || loading) return
+		if (loadway === 'page' || no_more || loading) return
 
 		dispatch({
 			type: 'index/loadMore',
@@ -204,6 +252,15 @@ const Index = (props: IProps) => {
 	}
 
 	useBottomScrollListener(onBottom, 1000, 0)
+
+	const onChangePagination = (v: number) => {
+		dispatch({
+			type: 'index/query',
+			payload: { current_group, page: v }
+		})
+
+		window.scrollTo({ top: 0 })
+	}
 
 	return (
 		<div className={`${styles._local} w_100`}>
@@ -229,15 +286,18 @@ const Index = (props: IProps) => {
 							</AutoSizer>
 						)}
 					</WindowScroller>
-					{loading && (
-						<div className='loading_more w_100 border_box pt_30 pb_30 flex justify_center'>
-							<LoadingOutlined
-								className='loading'
-								style={{ fontSize: '24px' }}
+					{loadway === 'page' &&
+					total > 10 && (
+						<div className='pagination_wrap w_100 flex justify_center pt_20'>
+							<Pagination
+								defaultCurrent={1}
+								total={total}
+								onChange={onChangePagination}
 							/>
 						</div>
 					)}
-					{no_more && (
+					{loadway !== 'page' &&
+					no_more && (
 						<div className='loading_more w_100 border_box pt_30 pb_30 flex justify_center'>
 							<span className='color_aaa'>
 								{lang.formatMessage({ id: 'index.no_more' })}

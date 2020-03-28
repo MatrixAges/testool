@@ -35,7 +35,7 @@
       box-shadow: var(--light_box_shadow_card);
       border-radius: var(--radius_normal);
       background-color: white;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       overflow: hidden;
 
       @media screen and (max-width:420px) {
@@ -61,7 +61,7 @@
 
                   .q_head {
                         padding: 10px 20px;
-                        border-bottom: 1px solid whitesmoke;
+                        border-bottom: var(--border_divide);
                   }
 
                   .q_foot {
@@ -77,18 +77,14 @@
                   transform-origin: top;
                   animation: show 0.3s ease;
                   padding: 16px 20px;
-                  border-top: 1px solid whitesmoke;
+                  border-top: var(--border_divide);
                   overflow-y: scroll;
             }
 
             :global {
                   .a_foot {
                         padding: 16px 20px;
-                        background-color: whitesmoke;
-
-                        @media screen and (max-width:420px) {
-                              background-color: #eee;
-                        }
+                        border-top: var(--border_divide);
 
                         .ant-rate {
                               color: var(--primary-color);

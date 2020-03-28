@@ -8,6 +8,7 @@ import styles from './index.less'
 const { Option } = Select
 
 interface IProps {
+	dispatch: (params: any) => void
 	groups: Array<string>
 	visible: boolean
 	onCancel: () => void
@@ -15,7 +16,7 @@ interface IProps {
 }
 
 const Index = (props: IProps) => {
-	const { groups, visible, onCancel, onDeleteGroup } = props
+	const { dispatch, groups, visible, onCancel, onDeleteGroup } = props
 	const lang = useIntl()
 	const [ state_modal_type, setStateModalType ] = useState('settings')
 	const [ state_group_selected, setStateGroupSelected ] = useState('')
@@ -45,19 +46,25 @@ const Index = (props: IProps) => {
 	}
 
 	const onChangeTheme = (v: boolean): void => {
-		if (v) {
-			store.set('theme', 'light')
-		} else {
-			store.set('theme', 'dark')
-		}
+		let _theme: string = v ? 'light' : 'dark'
+
+		store.set('theme', _theme)
+
+		dispatch({
+			type: 'app/updateState',
+			payload: { theme: _theme }
+		})
 	}
 
 	const onChangeLoadway = (v: boolean): void => {
-		if (v) {
-			store.set('loadway', 'scroll')
-		} else {
-			store.set('loadway', 'page')
-		}
+		let _loadway: string = v ? 'scroll' : 'page'
+
+		store.set('loadway', _loadway)
+
+		dispatch({
+			type: 'app/updateState',
+			payload: { loadway: _loadway }
+		})
 	}
 
 	const onChangeModalType = (type: string): void => {

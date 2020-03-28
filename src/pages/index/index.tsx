@@ -16,19 +16,21 @@ const Index = (props: any) => {
 	const {
 		loading,
 		dispatch,
-		app: { groups, current_group },
-		index: { modal_visible, modal_type, filter_visible, qas,no_more }
+		app: { groups, current_group, loadway },
+		index: { modal_visible, modal_type, filter_visible, qas, total, no_more, current_item }
 	} = props
 	const lang = useIntl()
 
 	const enum_modal_title = {
 		add_group: lang.formatMessage({ id: 'index.modal.title.add_group' }),
-		add_qa: lang.formatMessage({ id: 'index.modal.title.add_qa' })
+		add_qa: lang.formatMessage({ id: 'index.modal.title.add_qa' }),
+		edit_qa: lang.formatMessage({ id: 'index.modal.title.edit_qa' })
 	}
 
 	const props_modal = {
 		groups,
 		current_group,
+		current_item,
 		modal_type,
 		visible: modal_visible,
 		title: enum_modal_title[modal_type],
@@ -87,14 +89,41 @@ const Index = (props: any) => {
 					})
 				}
 			})
+		},
+		onDelQa () {
+			dispatch({
+				type: 'index/delQa',
+				payload: {
+					current_group,
+					message_success: lang.formatMessage({
+						id: 'index.modal.edit_qa.delete.success'
+					}),
+					message_failed: lang.formatMessage({
+						id: 'index.modal.edit_qa.delete.failed'
+					})
+				}
+			})
+		},
+		onPutQa (params: IQas) {
+			dispatch({
+				type: 'index/putQa',
+				payload: {
+					current_group,
+					params,
+					message_success: lang.formatMessage({
+						id: 'index.modal.edit_qa.success'
+					}),
+					message_failed: lang.formatMessage({
+						id: 'index.modal.edit_qa.failed'
+					})
+				}
+			})
 		}
 	}
 
 	const props_header = {
 		name: current_group,
-		onClearGroup () {
-			// 清除当前分组的打分数据
-		},
+		onClearGroup () {},
 		onAddGroup () {
 			dispatch({
 				type: 'index/updateState',
@@ -121,11 +150,13 @@ const Index = (props: any) => {
 		}
 	}
 
-      const props_qas = {
-            no_more,
-		qas,
-		groups,
+	const props_qas = {
 		dispatch,
+		loadway,
+		no_more,
+		qas,
+		total,
+		groups,
 		current_group,
 		loading: loading.effects['index/loadMore'],
 		onAddGroup () {

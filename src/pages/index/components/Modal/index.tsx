@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import { useIntl } from 'umi'
 import { Modal, Select, Input, Button, Form, Tag, message } from 'antd'
 import { CheckOutlined, PlusOutlined } from '@ant-design/icons'
@@ -7,18 +7,22 @@ import styles from './index.less'
 
 const { Option } = Select
 const { TextArea } = Input
+const { confirm } = Modal
 const { useForm, Item } = Form
 
 interface IProps {
 	title: string
 	groups: Array<string>
 	current_group: string
+	current_item: IQas
 	visible: boolean
 	modal_type: string
 	onCancel: () => void
 	onAddGroup: (name: string) => void
 	onChangeCurrentGroup: (v: string) => void
 	onAddQa: (params: IQas) => void
+	onDelQa: () => void
+	onPutQa: (params: IQas) => void
 }
 
 const Index = (props: IProps) => {
@@ -26,20 +30,37 @@ const Index = (props: IProps) => {
 		title,
 		groups,
 		current_group,
+		current_item,
 		visible,
 		modal_type,
 		onCancel,
 		onAddGroup,
 		onChangeCurrentGroup,
-		onAddQa
+		onAddQa,
+		onDelQa,
+		onPutQa
 	} = props
 	const lang = useIntl()
 	const [ form ] = useForm()
-	const { validateFields } = form
+	const { validateFields, setFieldsValue } = form
 
 	const [ state_tags, setStateTags ] = useState([])
 	const [ state_tags_input, setStateTagsInput ] = useState('')
 	const [ state_tags_input_visible, setStateTagsInputVisible ] = useState(false)
+
+	useEffect(
+		() => {
+			if (current_item.tags) {
+				setStateTags(current_item.tags)
+
+				setFieldsValue({
+					question: current_item.question,
+					answer: current_item.answer
+				})
+			}
+		},
+		[ current_item ]
+	)
 
 	const delTag = (tag: string) => {
 		setStateTags(state_tags.filter((item) => item !== tag))
@@ -73,8 +94,62 @@ const Index = (props: IProps) => {
 		visible,
 		onCancel,
 		centered: true,
+		forceRender: true,
 		maskClosable: true,
 		destroyOnClose: true
+	}
+
+	const onOk = async () => {
+		const { question, answer } = await validateFields()
+
+		if (modal_type === 'add_qa') {
+			onAddQa({
+				question,
+				answer,
+				tags: state_tags
+			})
+		}
+
+		if (modal_type === 'edit_qa') {
+			onPutQa({
+				question,
+				answer,
+				tags: state_tags
+			})
+		}
+	}
+
+	const onDelete = () => {
+		confirm({
+			centered: true,
+			title: lang.formatMessage({ id: 'common.confirm' }),
+			content: lang.formatMessage({ id: 'index.modal.edit_qa.delete.confirm' }),
+			onOk () {
+				onDelQa()
+			}
+		})
+	}
+
+	let _footer: object = {}
+
+	if (modal_type === 'edit_qa') {
+		_footer = {
+			footer: (
+				<div className='w_100 flex justify_between'>
+					<Button type='danger' onClick={onDelete}>
+						{lang.formatMessage({ id: 'common.btn_delete' })}
+					</Button>
+					<div className='right'>
+						<Button onClick={onCancel}>
+							{lang.formatMessage({ id: 'common.btn_cancel' })}
+						</Button>
+						<Button type='primary' onClick={onOk}>
+							{lang.formatMessage({ id: 'common.btn_ok' })}
+						</Button>
+					</div>
+				</div>
+			)
+		}
 	}
 
 	if (modal_type === 'add_group') {
@@ -119,22 +194,10 @@ const Index = (props: IProps) => {
 		)
 	}
 
-	if (modal_type === 'add_qa') {
+	if (modal_type === 'add_qa' || modal_type === 'edit_qa') {
 		return (
-			<Modal
-				className={styles._local}
-				{...props_modal}
-				onOk={async () => {
-					const { question, answer } = await validateFields()
-
-					onAddQa({
-						question,
-						answer,
-						tags: state_tags
-					})
-				}}
-			>
-				<Form form={form}>
+			<Modal className={styles._local} {...props_modal} {..._footer} onOk={onOk}>
+				<Form name='qa_form' form={form}>
 					<Item
 						name='question'
 						rules={[

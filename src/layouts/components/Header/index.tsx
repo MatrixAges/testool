@@ -97,7 +97,8 @@ const Index = (props: any) => {
 				</div>
 			</div>
 			<div className={styles.placeholder} />
-			<Modal
+                  <Modal
+                        dispatch={dispatch}
 				groups={groups}
 				visible={state_modal_visible}
 				onCancel={() => {

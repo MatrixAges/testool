@@ -21,7 +21,7 @@ const Index = (props: any) => {
 			<div className='w_100 flex justify_center'>
 				<div className={styles.container}>{children}</div>
 			</div>
-			<BackTop />
+                  <BackTop />
 		</Fragment>
 	)
 }

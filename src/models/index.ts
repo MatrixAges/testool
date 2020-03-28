@@ -1,7 +1,16 @@
 import modelExtend from 'dva-model-extend'
 import pageModel from '@/utils/model'
 import { message } from 'antd'
-import { Service_addGroup, Service_addQa, Service_getQas, Service_rate } from '@/services/index'
+import { cloneDeep } from 'lodash'
+import {
+	Service_addGroup,
+	Service_addQa,
+	Service_delQa,
+	Service_putQa,
+	Service_getQas,
+	Service_getTotal,
+	Service_rate
+} from '@/services/index'
 
 export default modelExtend(pageModel, {
 	namespace: 'index',
@@ -11,20 +20,25 @@ export default modelExtend(pageModel, {
 		modal_type: 'add_group',
 		filter_visible: false,
 		qas: [],
-		no_more: false
+		total: 0,
+		no_more: false,
+		current_item: {},
+		current_id: {},
+		current_index: {}
 	},
 
 	subscriptions: {},
 
 	effects: {
 		*query ({ payload }, { call, put }) {
-			const { current_group } = payload
+			const { current_group, page } = payload
 
-			const res = yield call(Service_getQas, current_group)
+			const qas = yield call(Service_getQas, current_group, page)
+			const total = yield call(Service_getTotal, current_group)
 
 			yield put({
 				type: 'updateState',
-				payload: { qas: res }
+				payload: { qas, total }
 			})
 		},
 		*loadMore ({ payload }, { call, put, select }) {
@@ -81,6 +95,52 @@ export default modelExtend(pageModel, {
 			yield put({
 				type: 'updateState',
 				payload: { modal_visible: false }
+			})
+		},
+		*delQa ({ payload }, { call, put, select }) {
+			const { qas, current_id, current_index } = yield select(({ index }) => index)
+			const { current_group, message_success, message_failed } = payload
+
+			const res = yield call(Service_delQa, current_group, current_id)
+
+			if (res) {
+				message.success(message_success)
+			} else {
+				message.error(message_failed)
+			}
+
+			const _qas = cloneDeep(qas)
+
+			_qas.splice(current_index, 1)
+
+			yield put({
+				type: 'updateState',
+				payload: {
+					modal_visible: false,
+					qas: _qas
+				}
+			})
+		},
+		*putQa ({ payload }, { call, put, select }) {
+			const { qas, current_id, current_index } = yield select(({ index }) => index)
+			const { current_group, params, message_success, message_failed } = payload
+
+			const res = yield call(Service_putQa, current_group, current_id, params)
+
+			if (res) {
+				message.success(message_success)
+			} else {
+				message.error(message_failed)
+			}
+
+			qas[current_index] = Object.assign(qas[current_index], params)
+
+			yield put({
+				type: 'updateState',
+				payload: {
+					modal_visible: false,
+					qas: qas
+				}
 			})
 		},
 		*rate ({ payload }, { call, put, select }) {

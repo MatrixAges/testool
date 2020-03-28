@@ -43,6 +43,22 @@ export default class Qas extends Dexie {
 		})
 	}
 
+	async delQa (id: number) {
+		await this.init()
+
+		this.transaction('rw', this.qas, async () => {
+			await this.qas.delete(id)
+		})
+	}
+
+	async putQa (id: number, { question, answer, tags }: IQas) {
+		await this.init()
+
+		this.transaction('rw', this.qas, async () => {
+			await this.qas.update(id, { question, answer, tags })
+		})
+	}
+
 	async rate ({ id, rate }: IRate) {
 		await this.init()
 
@@ -64,5 +80,13 @@ export default class Qas extends Dexie {
 		const _offset = _page * _page_size
 
 		return await this.qas.orderBy('id').offset(_offset).limit(_page_size).toArray()
+	}
+
+	async getTotal () {
+		await this.init()
+
+		const array = await this.qas.toArray()
+
+		return array.length
 	}
 }

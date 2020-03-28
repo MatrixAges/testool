@@ -7,7 +7,9 @@ export default {
 
 	state: {
 		groups: [],
-		current_group: ''
+		current_group: '',
+		theme: store.get('theme'),
+		loadway: store.get('loadway')
 	},
 
 	subscriptions: {
