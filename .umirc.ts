@@ -16,13 +16,8 @@ export default defineConfig({
 	alias: { R: resolve(__dirname, './') },
 	links: [ { rel: 'manifest', href: 'manifest.json' } ],
 	dynamicImport: { loading: '@/components/Loader/index' },
-      locale: { baseNavigator: false, default: 'en-US', antd: true },
-      lessLoader: {
-		modifyVars: {
-			hack: `true;@import "${require.resolve(
-				'antd/lib/style/color/colorPalette.less'
-			)}";`
-		},
+	locale: { baseNavigator: false, default: 'en-US', antd: true },
+	lessLoader: {
 		javascriptEnabled: true
 	},
 	extraBabelPlugins: [
