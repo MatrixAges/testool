@@ -53,6 +53,10 @@ const Index = (props: IProps) => {
 
 		store.set('theme', _theme)
 
+		window.less.modifyVars({
+			'@primary-color': 'red'
+		})
+
 		dispatch({
 			type: 'app/updateState',
 			payload: { theme: _theme }

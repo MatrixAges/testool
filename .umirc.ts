@@ -2,6 +2,7 @@ import path, { resolve } from 'path'
 import { defineConfig } from 'umi'
 import OfflinePlugin from 'offline-plugin'
 import WebpackPwaManifest from 'webpack-pwa-manifest'
+import AntDesignThemePlugin from 'antd-theme-webpack-plugin'
 import THEME from './src/themes/theme.config'
 
 export default defineConfig({
@@ -13,6 +14,7 @@ export default defineConfig({
 	publicPath: '/testool/',
 	dva: { immer: true, hmr: true },
 	alias: { R: resolve(__dirname, './') },
+	lessLoader: { javascriptEnabled: true },
 	links: [ { rel: 'manifest', href: 'manifest.json' } ],
 	dynamicImport: { loading: '@/components/Loader/index' },
 	locale: { baseNavigator: false, default: 'en-US', antd: true },
@@ -31,7 +33,7 @@ export default defineConfig({
 			'moment$',
 			path.resolve(__dirname, 'node_modules/moment/moment.js')
 		)
-
+		memo.plugin('antd-theme').use(AntDesignThemePlugin, [ webpack_plugin_antd_theme ])
 		memo.plugin('offline-plugin').use(OfflinePlugin, [ webpack_plugin_offline ])
 		memo.plugin('webpack-pwa-manifest').use(WebpackPwaManifest, [ webpack_plugin_pwa ])
 	}
@@ -61,4 +63,17 @@ const webpack_plugin_pwa: any = {
 			size: '512x512'
 		}
 	]
+}
+
+const webpack_plugin_antd_theme: any = {
+	antDir: path.join(__dirname, './node_modules/antd'),
+	stylesDir: path.join(__dirname, './src/themes'),
+	varFile: path.join(__dirname, './src/themes/skins/default.less'),
+	mainLessFile: path.join(__dirname, './src/global.less'),
+	themeVariables: [ '@primary-color' ],
+	indexFileName: 'index.html',
+	generateOnce: false,
+	lessUrl: 'https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js',
+	publicPath: '',
+	customColorRegexArray: []
 }
