@@ -54,7 +54,7 @@ const Index = (props: IProps) => {
 		store.set('theme', _theme)
 
 		window.less.modifyVars({
-			'@primary-color': 'red'
+			'@primary-color': '#000000'
 		})
 
 		dispatch({

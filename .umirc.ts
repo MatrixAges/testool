@@ -14,10 +14,17 @@ export default defineConfig({
 	publicPath: '/testool/',
 	dva: { immer: true, hmr: true },
 	alias: { R: resolve(__dirname, './') },
-      lessLoader: { javascriptEnabled: true },
 	links: [ { rel: 'manifest', href: 'manifest.json' } ],
 	dynamicImport: { loading: '@/components/Loader/index' },
-	locale: { baseNavigator: false, default: 'en-US', antd: true },
+      locale: { baseNavigator: false, default: 'en-US', antd: true },
+      lessLoader: {
+		modifyVars: {
+			hack: `true;@import "${require.resolve(
+				'antd/lib/style/color/colorPalette.less'
+			)}";`
+		},
+		javascriptEnabled: true
+	},
 	extraBabelPlugins: [
 		[
 			'import',
