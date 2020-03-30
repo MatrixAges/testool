@@ -35,7 +35,7 @@ export default class Qas extends Dexie {
 		return await this.open()
 	}
 
-	async addQa ({ question, answer, tags }: IQas) {
+	async addQa ({ question, answer, tags }: IQas): Promise<void> {
 		await this.init()
 
 		this.transaction('rw', this.qas, async () => {
@@ -43,7 +43,7 @@ export default class Qas extends Dexie {
 		})
 	}
 
-	async delQa (id: number) {
+	async delQa (id: number): Promise<void> {
 		await this.init()
 
 		this.transaction('rw', this.qas, async () => {
@@ -51,7 +51,7 @@ export default class Qas extends Dexie {
 		})
 	}
 
-	async putQa (id: number, { question, answer, tags }: IQas) {
+	async putQa (id: number, { question, answer, tags }: IQas): Promise<void> {
 		await this.init()
 
 		this.transaction('rw', this.qas, async () => {
@@ -59,7 +59,7 @@ export default class Qas extends Dexie {
 		})
 	}
 
-	async rate ({ id, rate }: IRate) {
+	async rate ({ id, rate }: IRate): Promise<void> {
 		await this.init()
 
 		this.transaction('rw', this.qas, async () => {
@@ -72,7 +72,7 @@ export default class Qas extends Dexie {
 		})
 	}
 
-	async getQas (page?: number, page_size?: number) {
+	async getQas (page?: number, page_size?: number): Promise<Array<IQas>> {
 		await this.init()
 
 		const _page = page ? page - 1 : 0
@@ -82,11 +82,38 @@ export default class Qas extends Dexie {
 		return await this.qas.orderBy('id').offset(_offset).limit(_page_size).toArray()
 	}
 
-	async getTotal () {
+	async getTotal (): Promise<number> {
 		await this.init()
 
 		const array = await this.qas.toArray()
 
 		return array.length
+	}
+
+	async getAverageRate (): Promise<number> {
+		await this.init()
+
+		const array = await this.qas.toArray()
+		const length_array = array.length
+
+		let total_all: number = 0
+
+		if (!length_array) return 0
+
+		array.map((item) => {
+			const length_rates = item.rates.length
+
+			let total_rates: number = 0
+
+			item.rates.map((it) => {
+				total_rates = total_rates + it.rate
+			})
+
+			if (length_rates) {
+				total_all = total_all + total_rates / length_rates
+			}
+		})
+
+		return parseFloat((total_all / length_array).toFixed(2))
 	}
 }

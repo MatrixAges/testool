@@ -8,7 +8,8 @@ import {
 	UpCircleOutlined,
 	DownCircleOutlined,
 	CheckCircleOutlined,
-	PlusOutlined
+	PlusOutlined,
+	LineChartOutlined
 } from '@ant-design/icons'
 import { List, AutoSizer, WindowScroller, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
@@ -18,21 +19,37 @@ import styles from './index.less'
 
 interface IQa extends IQas {
 	index: number
-	style: any
-	ref: any
-	measure: () => any
+	style?: any
+	ref?: any
+	measure?: () => any
 	rate: (params: IORate) => void
 	onEdit: (id: number, index: number) => void
+	onChart: (id: number, index: number) => void
 }
 
 const Qa = (props: IQa) => {
-	const { id, index, question, answer, tags, rates, style, ref, measure, rate, onEdit } = props
+	const {
+		id,
+		index,
+		question,
+		answer,
+		tags,
+		rates,
+		style,
+		ref,
+		measure,
+		rate,
+		onEdit,
+		onChart
+	} = props
 	const [ state_answer_visible, setStateAnswerVisible ] = useState(false)
 	const [ state_rate, setStateRate ] = useState(5)
 	const lang = useIntl()
 
 	useEffect(
 		() => {
+			if (!measure) return
+
 			measure()
 		},
 		[ state_answer_visible ]
@@ -52,20 +69,28 @@ const Qa = (props: IQa) => {
 				<div className='question w_100 border_box flex flex_column'>
 					<div className='q_head q_item w_100 border_box flex justify_between'>
 						<div className='left flex align_center'>
-							<div className='head_item flex align_center mr_16'>
+							<div className='pass_times head_item flex align_center mr_16'>
 								<CheckOutlined />
 								<span className='text ml_4'>{rates.length}</span>
 							</div>
 							<div className='head_item flex align_center'>
 								<StarOutlined />
-								<span className='text ml_4'>
+								<span className='avarage_rate_value text ml_4 flex'>
 									{avarage_rate ? avarage_rate.toFixed(2) : 0}
 								</span>
 							</div>
 						</div>
 						<div className='right flex align_center'>
 							<div
-								className='icon_wrap flex justify_center align_center transition_normal cursor_point'
+								className={`icon_wrap flex justify_center align_center transition_normal cursor_point ${rates.length
+									? ''
+									: 'disabled color_aaa'}`}
+								onClick={() => onChart(id, index)}
+							>
+								<LineChartOutlined />
+							</div>
+							<div
+								className='icon_edit_wrap icon_wrap flex justify_center align_center transition_normal cursor_point'
 								onClick={() => onEdit(id, index)}
 							>
 								<EditOutlined />
@@ -85,7 +110,7 @@ const Qa = (props: IQa) => {
 						</div>
 						{state_answer_visible ? (
 							<div
-								className='icon_wrap flex justify_center align_center transition_normal cursor_point'
+								className='icon_toggle_wrap icon_wrap flex justify_center align_center transition_normal cursor_point'
 								onClick={() => {
 									setStateAnswerVisible(false)
 								}}
@@ -94,7 +119,7 @@ const Qa = (props: IQa) => {
 							</div>
 						) : (
 							<div
-								className='icon_wrap flex justify_center align_center transition_normal cursor_point'
+								className='icon_toggle_wrap icon_wrap flex justify_center align_center transition_normal cursor_point'
 								onClick={() => {
 									setStateAnswerVisible(true)
 								}}
@@ -198,12 +223,25 @@ const Index = (props: IProps) => {
 		[ loadway ]
 	)
 
-      const onEdit = (id: number, index: number) => {
+	const onEdit = (id: number, index: number) => {
 		dispatch({
 			type: 'index/updateState',
 			payload: {
 				modal_visible: true,
 				modal_type: 'edit_qa',
+				current_item: qas[index],
+				current_id: id,
+				current_index: index
+			}
+		})
+	}
+
+	const onChart = (id: number, index: number) => {
+		dispatch({
+			type: 'index/updateState',
+			payload: {
+				modal_visible: true,
+				modal_type: 'rate_log',
 				current_item: qas[index],
 				current_id: id,
 				current_index: index
@@ -230,6 +268,7 @@ const Index = (props: IProps) => {
 						{...item}
 						rate={rate}
 						onEdit={onEdit}
+						onChart={onChart}
 						style={style}
 					/>
 				)}
@@ -266,26 +305,41 @@ const Index = (props: IProps) => {
 		<div className={`${styles._local} w_100`}>
 			{groups.length > 0 ? (
 				<div className='w_100 border_box flex flex_column'>
-					<WindowScroller>
-						{({ height, isScrolling, onChildScroll, scrollTop }) => (
-							<AutoSizer disableHeight>
-								{({ width }) => (
-									<List
-										autoHeight
-										width={width}
-										height={height}
-										rowCount={qas.length}
-										deferredMeasurementCache={cache}
-										rowHeight={cache.rowHeight}
-										rowRenderer={rowRenderer}
-										isScrolling={isScrolling}
-										onScroll={onChildScroll}
-										scrollTop={scrollTop}
-									/>
-								)}
-							</AutoSizer>
-						)}
-					</WindowScroller>
+					{loadway === 'page' ? (
+						<div className='w_100 border_box flex flex_column'>
+							{qas.map((item, index) => (
+								<Qa
+									index={index}
+									{...item}
+									rate={rate}
+									onEdit={onEdit}
+									onChart={onChart}
+									key={item.id}
+								/>
+							))}
+						</div>
+					) : (
+						<WindowScroller>
+							{({ height, isScrolling, onChildScroll, scrollTop }) => (
+								<AutoSizer disableHeight>
+									{({ width }) => (
+										<List
+											autoHeight
+											width={width}
+											height={height}
+											rowCount={qas.length}
+											deferredMeasurementCache={cache}
+											rowHeight={cache.rowHeight}
+											rowRenderer={rowRenderer}
+											isScrolling={isScrolling}
+											onScroll={onChildScroll}
+											scrollTop={scrollTop}
+										/>
+									)}
+								</AutoSizer>
+							)}
+						</WindowScroller>
+					)}
 					{loadway === 'page' &&
 					total > 10 && (
 						<div className='pagination_wrap w_100 flex justify_center pt_20'>

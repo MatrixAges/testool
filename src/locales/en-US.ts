@@ -33,6 +33,7 @@ export default {
 	'index.modal.title.add_group': 'Groups',
 	'index.modal.title.add_qa': 'Add QA',
 	'index.modal.title.edit_qa': 'Edit QA',
+	'index.modal.title.rate_log': 'Rate logs',
 	'index.modal.add_group.placeholder': 'toggle/add group',
 	'index.modal.add_group.success': 'add group success',
 	'index.modal.add_group.failed': 'add group failed',

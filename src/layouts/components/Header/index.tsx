@@ -5,8 +5,9 @@ import { SearchOutlined, SettingOutlined, GithubOutlined } from '@ant-design/ico
 import Logo from '../Logo'
 import Modal from '../Modal'
 import styles from './index.less'
+
 const Index = (props: any) => {
-	const { dispatch, app: { groups } } = props
+	const { dispatch, app: { groups, analysis_data } } = props
 	const [ state_scrolled, setStateScrolled ] = useState(false)
 	const [ state_modal_visible, setStateModalVisible ] = useState(false)
 	const [ state_search_display, setStateSearchDisplay ] = useState({})
@@ -97,9 +98,10 @@ const Index = (props: any) => {
 				</div>
 			</div>
 			<div className={styles.placeholder} />
-                  <Modal
-                        dispatch={dispatch}
+			<Modal
+				dispatch={dispatch}
 				groups={groups}
+				analysis_data={analysis_data}
 				visible={state_modal_visible}
 				onCancel={() => {
 					setStateModalVisible(false)

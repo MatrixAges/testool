@@ -47,11 +47,14 @@
                   width: 30px;
                   height: 30px;
                   border-radius: var(--radius_normal);
-                  margin-right: -10px;
 
                   &:hover {
                         background-color: var(--light_bg_hover);
                   }
+            }
+
+            .icon_edit_wrap,.icon_toggle_wrap {
+                  margin-right: -10px;
             }
 
             .question {
@@ -62,6 +65,18 @@
                   .q_head {
                         padding: 10px 20px;
                         border-bottom: var(--border_divide);
+
+                        .left {
+
+                              .pass_times {
+                                    width: 40px;
+                              }
+
+                              .avarage_rate_value {
+                                    width: 40px;
+                              }
+                        }
+                     
                   }
 
                   .q_foot {
@@ -84,7 +99,7 @@
             :global {
                   .a_foot {
                         padding: 16px 20px;
-                        border-top: var(--border_divide);
+                        background-color: whitesmoke;
 
                         .ant-rate {
                               color: var(--primary-color);

@@ -24,7 +24,8 @@ const Index = (props: any) => {
 	const enum_modal_title = {
 		add_group: lang.formatMessage({ id: 'index.modal.title.add_group' }),
 		add_qa: lang.formatMessage({ id: 'index.modal.title.add_qa' }),
-		edit_qa: lang.formatMessage({ id: 'index.modal.title.edit_qa' })
+		edit_qa: lang.formatMessage({ id: 'index.modal.title.edit_qa' }),
+		rate_log: lang.formatMessage({ id: 'index.modal.title.rate_log' })
 	}
 
 	const props_modal = {
@@ -34,7 +35,7 @@ const Index = (props: any) => {
 		modal_type,
 		visible: modal_visible,
 		title: enum_modal_title[modal_type],
-            onCancel() {
+		onCancel () {
 			dispatch({
 				type: 'index/updateState',
 				payload: {

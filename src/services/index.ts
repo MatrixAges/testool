@@ -1,10 +1,6 @@
 import Groups from '@/db/models/Groups'
 import Qas, { IQas, IRate } from '@/db/models/Qas'
 
-interface IGetQas {}
-
-interface IPutQa {}
-
 export const Service_addGroup = async (group: string): Promise<boolean> => {
 	const groups = new Groups()
 

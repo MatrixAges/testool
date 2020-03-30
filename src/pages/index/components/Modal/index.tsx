@@ -1,7 +1,8 @@
 import React, { memo, useState, useEffect } from 'react'
 import { useIntl } from 'umi'
 import { Modal, Select, Input, Button, Form, Tag, message } from 'antd'
-import { CheckOutlined, PlusOutlined } from '@ant-design/icons'
+import { CheckOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons'
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts'
 import { IQas } from '@/db/models/Qas'
 import styles from './index.less'
 
@@ -46,10 +47,13 @@ const Index = (props: IProps) => {
 
 	const [ state_tags, setStateTags ] = useState([])
 	const [ state_tags_input, setStateTagsInput ] = useState('')
+	const [ state_group_input, setStateGroupInput ] = useState('')
 	const [ state_tags_input_visible, setStateTagsInputVisible ] = useState(false)
 
 	useEffect(
 		() => {
+			if (modal_type === 'rate_log') return
+
 			if (current_item.tags) {
 				setStateTags(current_item.tags)
 
@@ -93,15 +97,12 @@ const Index = (props: IProps) => {
 		}
 	}
 
-	const [ state_group_input, setStateGroupInput ] = useState('')
-
 	const props_modal = {
 		title,
 		visible,
 		centered: true,
 		maskClosable: true,
 		destroyOnClose: true,
-		getContainer: false,
 		onCancel () {
 			setStateTags([])
 
@@ -148,13 +149,12 @@ const Index = (props: IProps) => {
 	}
 
 	let _footer: object = {}
-	let _initialValue: object = {}
 
 	if (modal_type === 'edit_qa') {
 		_footer = {
 			footer: (
 				<div className='w_100 flex justify_between'>
-					<Button type='danger' onClick={onDelete}>
+					<Button type='danger' icon={<DeleteOutlined />} onClick={onDelete}>
 						{lang.formatMessage({ id: 'common.btn_delete' })}
 					</Button>
 					<div className='right'>
@@ -211,9 +211,33 @@ const Index = (props: IProps) => {
 		)
 	}
 
+	if (modal_type === 'rate_log') {
+		return (
+			<Modal className={styles._local} {...props_modal} footer={null}>
+				<ResponsiveContainer width='100%' height={120}>
+					<LineChart data={current_item.rates}>
+						<XAxis
+							hide
+							dataKey={(item) => new Date(item.create_at).toISOString()}
+						/>
+						<YAxis dataKey='rate' domain={[ 0, 5 ]} hide />
+						<Tooltip />
+						<Line dataKey='rate' type='monotone' stroke='#000' />
+					</LineChart>
+				</ResponsiveContainer>
+			</Modal>
+		)
+	}
+
 	if (modal_type === 'add_qa' || modal_type === 'edit_qa') {
 		return (
-			<Modal className={styles._local} {...props_modal} {..._footer} onOk={onOk}>
+			<Modal
+				className={styles._local}
+				{...props_modal}
+				{..._footer}
+				onOk={onOk}
+				getContainer={false}
+			>
 				<Form name='qa_form' form={form}>
 					<Item
 						name='question'

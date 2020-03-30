@@ -1,6 +1,11 @@
 import { message } from 'antd'
 import store from 'store'
-import { Service_addTableGroups, Service_getAllGroups, Service_deleteGroup } from '@/services/app'
+import {
+	Service_addTableGroups,
+	Service_getAllGroups,
+	Service_deleteGroup,
+	Service_getAnalysisData
+} from '@/services/app'
 
 export default {
 	namespace: 'app',
@@ -9,7 +14,8 @@ export default {
 		groups: [],
 		current_group: '',
 		theme: store.get('theme'),
-		loadway: store.get('loadway')
+		loadway: store.get('loadway'),
+		analysis_data: []
 	},
 
 	subscriptions: {
@@ -72,6 +78,11 @@ export default {
 			}
 
 			yield put({ type: 'query' })
+		},
+		*getAnalysisData ({}, { call, put }) {
+                  const res = yield call(Service_getAnalysisData)
+
+			yield put({ type: 'updateState', payload: { analysis_data: res } })
 		}
 	},
 
