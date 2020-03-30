@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#ver:3/30/2020, 3:01:24 PM
+#ver:3/30/2020, 3:50:44 PM
 #plugin:5.0.7
 
 CACHE:
@@ -17,6 +17,7 @@ CACHE:
 /testool/vendors~p__index__index.js
 /testool/
 /testool/favicon.ico
+/testool/less.min.js
 /testool/logo_white.png
 /testool/logo.png
 /testool/color.less
