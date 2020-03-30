@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect } from 'react'
 import { useIntl } from 'umi'
-import { Tag, Rate, Button, Empty, Pagination } from 'antd'
+import { Tag, Rate, Button, Empty, Pagination, Modal } from 'antd'
 import {
 	CheckOutlined,
 	StarOutlined,
@@ -9,13 +9,18 @@ import {
 	DownCircleOutlined,
 	CheckCircleOutlined,
 	PlusOutlined,
-	LineChartOutlined
+	LineChartOutlined,
+	RedoOutlined
 } from '@ant-design/icons'
 import { List, AutoSizer, WindowScroller, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
+import ReactMarkDown from 'react-markdown'
+import CodeBlock from '@/components/CodeBlock'
 import { IQas } from '@/db/models/Qas'
 import { IORate } from '../../index'
 import styles from './index.less'
+
+const { confirm } = Modal
 
 interface IQa extends IQas {
 	index: number
@@ -25,6 +30,7 @@ interface IQa extends IQas {
 	rate: (params: IORate) => void
 	onEdit: (id: number, index: number) => void
 	onChart: (id: number, index: number) => void
+	onClear: (id: number, index: number) => void
 }
 
 const Qa = (props: IQa) => {
@@ -40,7 +46,8 @@ const Qa = (props: IQa) => {
 		measure,
 		rate,
 		onEdit,
-		onChart
+		onChart,
+		onClear
 	} = props
 	const [ state_answer_visible, setStateAnswerVisible ] = useState(false)
 	const [ state_rate, setStateRate ] = useState(5)
@@ -81,6 +88,26 @@ const Qa = (props: IQa) => {
 							</div>
 						</div>
 						<div className='right flex align_center'>
+							<div
+								className='icon_wrap flex justify_center align_center transition_normal cursor_point'
+								onClick={() => {
+									confirm({
+										centered: true,
+										title: lang.formatMessage({
+											id: 'common.confirm'
+										}),
+										content: lang.formatMessage({
+											id:
+												'index.modal.clear_log.confirm'
+										}),
+										onOk () {
+											onClear(id, index)
+										}
+									})
+								}}
+							>
+								<RedoOutlined />
+							</div>
 							<div
 								className={`icon_wrap flex justify_center align_center transition_normal cursor_point ${rates.length
 									? ''
@@ -136,7 +163,12 @@ const Qa = (props: IQa) => {
 						<div
 							className={`${styles.content} w_100 border_box text_justify`}
 						>
-							{answer}
+							<ReactMarkDown
+								className={styles.markdown}
+								source={answer}
+								renderers={{ code: CodeBlock }}
+								skipHtml
+							/>
 						</div>
 						<div className='a_foot w_100 border_box flex justify_between align_center'>
 							<div className='left'>
@@ -249,6 +281,23 @@ const Index = (props: IProps) => {
 		})
 	}
 
+	const onClear = (id: number, index: number) => {
+		dispatch({
+			type: 'index/clearRateLog',
+			payload: {
+				current_group,
+				id,
+				index,
+				message_success: lang.formatMessage({
+					id: 'index.modal.clear_log.success'
+				}),
+				message_failed: lang.formatMessage({
+					id: 'index.modal.clear_log.failed'
+				})
+			}
+		})
+	}
+
 	const rowRenderer = ({ index, parent, key, style }) => {
 		const item = qas[index]
 
@@ -269,6 +318,7 @@ const Index = (props: IProps) => {
 						rate={rate}
 						onEdit={onEdit}
 						onChart={onChart}
+						onClear={onClear}
 						style={style}
 					/>
 				)}
@@ -314,6 +364,7 @@ const Index = (props: IProps) => {
 									rate={rate}
 									onEdit={onEdit}
 									onChart={onChart}
+									onClear={onClear}
 									key={item.id}
 								/>
 							))}

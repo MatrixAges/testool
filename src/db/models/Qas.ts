@@ -72,6 +72,14 @@ export default class Qas extends Dexie {
 		})
 	}
 
+	async clearRateLog (id: number): Promise<void> {
+		await this.init()
+
+		this.transaction('rw', this.qas, async () => {
+			await this.qas.update(id, { rates: [] })
+		})
+	}
+
 	async getQas (page?: number, page_size?: number): Promise<Array<IQas>> {
 		await this.init()
 

@@ -22,7 +22,6 @@ export default {
 	'layout.modal.clear.message_failed': 'delete failed',
 	'index.btn_pass': 'Pass',
 	'index.btn_add': 'Add Group',
-	'index.header.tooltip.clear_group': 'clear current group grades',
 	'index.header.tooltip.group': 'toggle/add group',
 	'index.header.tooltip.filter': 'show the filter',
 	'index.header.tooltip.add_qa': 'add QA',
@@ -49,8 +48,11 @@ export default {
 	'index.modal.rate.failed': 'rate failed',
 	'index.modal.edit_qa.success': 'edit qa success',
 	'index.modal.edit_qa.failed': 'edit qa failed',
-      'index.modal.edit_qa.delete.confirm': 'confirm delete this QA?',
-      'index.modal.edit_qa.delete.success': 'delete qa success',
-	'index.modal.edit_qa.delete.failed': 'delete qa failed',
+	'index.modal.edit_qa.delete.confirm': 'confirm delete this QA?',
+	'index.modal.edit_qa.delete.success': 'delete qa success',
+      'index.modal.edit_qa.delete.failed': 'delete qa failed',
+	'index.modal.clear_log.confirm': 'confirm clear rate log of this QA?',
+	'index.modal.clear_log.success': 'clear qa rate log success',
+	'index.modal.clear_log.failed': 'clear qa rate log failed',
 	'index.no_more': 'no more'
 }

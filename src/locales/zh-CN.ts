@@ -22,7 +22,6 @@ export default {
 	'layout.modal.clear.message_failed': '删除失败',
 	'index.btn_pass': '通过',
 	'index.btn_add': '添加分组',
-	'index.header.tooltip.clear_group': '清除当前分组的分数',
 	'index.header.tooltip.group': '切换/添加 分组',
 	'index.header.tooltip.filter': '展示筛选条件',
 	'index.header.tooltip.add_qa': '添加 QA',
@@ -32,7 +31,7 @@ export default {
 	'index.filter.rate.below': '低于',
 	'index.modal.title.add_group': '分组',
 	'index.modal.title.add_qa': '添加 QA',
-      'index.modal.title.edit_qa': '编辑 QA',
+	'index.modal.title.edit_qa': '编辑 QA',
 	'index.modal.title.rate_log': '评分记录',
 	'index.modal.add_group.placeholder': '切换/添加 分组',
 	'index.modal.add_group.success': '分组添加成功',
@@ -52,5 +51,8 @@ export default {
 	'index.modal.edit_qa.delete.confirm': '确认删除该条QA？',
 	'index.modal.edit_qa.delete.success': '删除成功',
 	'index.modal.edit_qa.delete.failed': '删除失败',
+	'index.modal.clear_log.confirm': '确认清除这条QA的评分记录?',
+	'index.modal.clear_log.success': '清除评分记录成功',
+	'index.modal.clear_log.failed': '清除评分记录失败',
 	'index.no_more': '没有更多了'
 }

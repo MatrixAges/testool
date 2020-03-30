@@ -80,3 +80,15 @@ export const Service_rate = async (current_group: string, params: IRate): Promis
 
 	return true
 }
+
+export const Service_clearRateLog = async (current_group: string, id: number): Promise<boolean> => {
+      const qa = new Qas(current_group)
+
+	try {
+		await qa.clearRateLog(id)
+	} catch (_) {
+		return false
+	}
+
+	return true
+}

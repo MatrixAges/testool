@@ -9,7 +9,8 @@ import {
 	Service_putQa,
 	Service_getQas,
 	Service_getTotal,
-	Service_rate
+	Service_rate,
+	Service_clearRateLog
 } from '@/services/index'
 
 export default modelExtend(pageModel, {
@@ -162,6 +163,25 @@ export default modelExtend(pageModel, {
 			}
 
 			qas[index].rates.push({ rate, create_at: new Date().valueOf() })
+
+			yield put({
+				type: 'updateState',
+				payload: { qas: qas }
+			})
+		},
+		*clearRateLog ({ payload }, { call, put, select }) {
+			const { qas } = yield select(({ index }) => index)
+			const { current_group, id, index, message_success, message_failed } = payload
+
+			const res = yield call(Service_clearRateLog, current_group, id)
+
+			if (res) {
+				message.success(message_success)
+			} else {
+				message.error(message_failed)
+			}
+
+			qas[index].rates = []
 
 			yield put({
 				type: 'updateState',

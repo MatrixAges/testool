@@ -127,7 +127,6 @@ const Index = (props: any) => {
 
 	const props_header = {
 		name: current_group,
-		onClearGroup () {},
 		onAddGroup () {
 			dispatch({
 				type: 'index/updateState',
