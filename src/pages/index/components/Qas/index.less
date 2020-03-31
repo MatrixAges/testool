@@ -40,6 +40,14 @@
 
       &.qa_item_dark {
             background-color: var(--dark_color_block);
+
+            :global{
+                  .question{
+                        .q_head{
+                              border-bottom: 1px solid #242424;
+                        }
+                  }
+            }
       }
 
       @media screen and (max-width:420px) {
@@ -73,7 +81,7 @@
 
                   .q_head {
                         padding: 10px 20px;
-                        border-bottom: 1px solid @border-color-split;
+                        border-bottom: 1px solid whitesmoke;
 
                         .left {
 
@@ -101,8 +109,12 @@
                   transform-origin: top;
                   animation: show 0.3s ease;
                   padding: 16px 20px;
-                  border-top: 1px solid @border-color-split;
                   overflow-y: scroll;
+                  border-top: 1px dashed #ddd;
+
+                  &.dark{
+                        border-top: 1px dashed rgba(255, 255, 255, 0.2);
+                  }
             }
 
             &.dark {

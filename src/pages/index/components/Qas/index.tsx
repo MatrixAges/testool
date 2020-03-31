@@ -166,12 +166,18 @@ const Qa = (props: IQa) => {
 				</div>
 				{state_answer_visible && (
 					<div
-						className={`${styles.answer} ${theme === 'dark'
-							? styles.dark
-							: ''} w_100 border_box flex flex_column transition_normal`}
+						className={`
+                                          ${styles.answer} 
+                                          ${theme === 'dark' ? styles.dark : ''}
+                                          w_100 border_box flex flex_column transition_normal
+                                    `}
 					>
 						<div
-							className={`${styles.content} w_100 border_box text_justify`}
+                                          className={`
+                                                ${styles.content} 
+                                                ${theme === 'dark' ? styles.dark : ''}
+                                                w_100 border_box text_justify
+                                          `}
 						>
 							<ReactMarkDown
 								className={`${styles.markdown} ${theme === 'dark'
