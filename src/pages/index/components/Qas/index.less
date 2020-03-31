@@ -38,6 +38,10 @@
       margin-bottom: 16px;
       overflow: hidden;
 
+      &.qa_item_dark {
+            background-color: var(--dark_color_block);
+      }
+
       @media screen and (max-width:420px) {
             box-shadow: none;
       }
@@ -50,6 +54,10 @@
 
                   &:hover {
                         background-color: var(--light_bg_hover);
+                  }
+
+                  &.disabled{
+                        opacity: 0.1;
                   }
             }
 
@@ -97,6 +105,14 @@
                   overflow-y: scroll;
             }
 
+            &.dark{
+                  :global {
+                        .a_foot {
+                              background-color: rgba(0, 0, 0, 0.1);
+                        }
+                  }
+            }
+
             :global {
                   .a_foot {
                         padding: 16px 20px;
@@ -112,6 +128,37 @@
 
 .markdown {
       color: #24292e;
+
+      &.dark {
+            color: white;
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                  color: white;
+            }
+
+            h1,
+            h2 {
+                  padding-bottom: .3em;
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            pre {
+                  background-color: #333;
+            }
+
+            p {
+
+                  code,
+                  tt {
+                        background-color: #333;
+                  }
+            }
+      }
 
       :global {
 
@@ -152,17 +199,17 @@
                   border-radius: 3px;
             }
 
-            code,
-            tt {
-                  padding: .2em .4em;
-                  background-color: rgba(27, 31, 35, .05);
-                  border-radius: 3px;
-            }
-
             p {
                   margin-top: 10px;
                   margin-bottom: 16px;
                   line-height: 1.8;
+
+                  code,
+                  tt {
+                        padding: .2em .4em;
+                        background-color: rgba(27, 31, 35, .05);
+                        border-radius: 3px;
+                  }
             }
       }
 }

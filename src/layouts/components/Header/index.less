@@ -9,8 +9,25 @@
       &.scrolled {
             box-shadow: 0 0 10px #666;
 
+            &.dark {
+                  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            }
+
             @media screen and (max-width:420px) {
                   box-shadow: none;
+            }
+      }
+
+      &.dark {
+            background-color: var(--color_background);
+            border-bottom: 1px solid #333;
+            :global{
+                  .ant-back-top {
+
+                        .ant-back-top-content {
+                              background-color: #333;
+                        }
+                  }
             }
       }
 
@@ -79,6 +96,34 @@
                   input.ant-input {
                         background-color: transparent;
                         color: white;
+                  }
+            }
+
+            .ant-back-top {
+                  @media screen and (max-width:840px) {
+                        width: 30px !important;
+                        height: 30px !important;
+                        bottom: 15px !important;
+                        right: calc(~'50vw - 15px') !important;
+                  }
+
+                  .ant-back-top-content {
+                        width: 30px !important;
+                        height: 30px !important;
+                        background-color: #ddd;
+                        margin-right: 0;
+                        border-radius: var(--radius_normal);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        &:hover {
+                              background-color: var(--primary-color);
+                        }
+
+                        .ant-back-top-icon {
+                              margin: 0;
+                        }
                   }
             }
       }

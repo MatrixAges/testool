@@ -19,34 +19,6 @@ body {
       height: 0px;
 }
 
-.ant-back-top {
-      @media screen and (max-width:840px) {
-            width: 30px !important;
-            height: 30px !important;
-            bottom: 15px !important;
-            right: calc(~'50vw - 15px') !important;
-      }
-
-      .ant-back-top-content {
-            width: 30px !important;
-            height: 30px !important;
-            background-color: #ddd;
-            margin-right: 0;
-            border-radius: var(--radius_normal);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &:hover {
-                  background-color: var(--primary-color);
-            }
-
-            .ant-back-top-icon {
-                  margin: 0;
-            }
-      }
-}
-
 @media screen and (max-width:420px) {
       .ant-modal-wrap {
             display: flex;
@@ -59,12 +31,8 @@ body {
 }
 
 .ant-select-dropdown {
-      .backdrop_blur();
-}
-
-.ant-picker-dropdown {
-      .ant-picker-panel-container {
-            .backdrop_blur();
+      .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+            background-color: transparent;
       }
 }
 
@@ -98,7 +66,7 @@ body {
 }
 
 .ant-calendar {
-      .backdrop_blur();
+
       border: @border_section;
 
       .ant-calendar-panel {
@@ -111,7 +79,7 @@ body {
 }
 
 .ant-cascader-menus {
-      .backdrop_blur();
+
       border: @border_section;
 }
 
@@ -124,6 +92,10 @@ body {
             .ant-modal-header {
                   background-color: transparent;
                   border-bottom: @border_divide;
+
+                  .ant-modal-title {
+                        color: @text-color;
+                  }
             }
 
             .ant-modal-footer {
@@ -132,7 +104,7 @@ body {
             }
 
             .ant-menu-submenu {
-                  .backdrop_blur();
+
                   border: @border_section;
             }
 

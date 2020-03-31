@@ -1,4 +1,16 @@
 ._local {
+      &.dark {
+            :global {
+                  .settings_wrap {
+                        background-color: var(--color_background);
+
+                        .setting_item {
+                              border-top: 1px solid #242424;
+                        }
+                  }
+            }
+      }
+
       :global {
             .ant-modal-content {
                   overflow: hidden;
@@ -20,18 +32,18 @@
                         padding: 12px 20px;
                         border-top: 1px solid whitesmoke;
                   }
-      
+
                   .option_items {
                         .option_item {
                               flex: 1;
                               padding: 24px 0;
                               padding-bottom: 20px;
                               border-radius: var(--radius_normal);
-      
+
                               &:hover {
                                     background-color: var(--light_bg_hover);
                               }
-      
+
                               .name {
                                     margin-top: 6px;
                               }

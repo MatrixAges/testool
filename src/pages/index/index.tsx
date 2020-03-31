@@ -16,7 +16,7 @@ const Index = (props: any) => {
 	const {
 		loading,
 		dispatch,
-		app: { groups, current_group, loadway },
+		app: { groups, current_group, theme, loadway },
 		index: { modal_visible, modal_type, filter_visible, qas, total, no_more, current_item }
 	} = props
 	const lang = useIntl()
@@ -29,6 +29,7 @@ const Index = (props: any) => {
 	}
 
 	const props_modal = {
+		theme,
 		groups,
 		current_group,
 		current_item,
@@ -74,6 +75,11 @@ const Index = (props: any) => {
 
 			dispatch({
 				type: 'app/updateState',
+				payload: { current_group: v }
+			})
+
+			dispatch({
+				type: 'index/query',
 				payload: { current_group: v }
 			})
 
@@ -155,6 +161,7 @@ const Index = (props: any) => {
 
 	const props_qas = {
 		dispatch,
+		theme,
 		loadway,
 		no_more,
 		qas,

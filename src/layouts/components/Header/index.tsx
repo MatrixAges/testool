@@ -1,13 +1,13 @@
 import React, { memo, Fragment, useState, useEffect } from 'react'
 import { connect, useIntl } from 'umi'
-import { Input } from 'antd'
+import { Input, BackTop } from 'antd'
 import { SearchOutlined, SettingOutlined, GithubOutlined } from '@ant-design/icons'
 import Logo from '../Logo'
 import Modal from '../Modal'
 import styles from './index.less'
 
 const Index = (props: any) => {
-	const { dispatch, app: { groups, analysis_data } } = props
+	const { dispatch, app: { groups, analysis_data, theme } } = props
 	const [ state_scrolled, setStateScrolled ] = useState(false)
 	const [ state_modal_visible, setStateModalVisible ] = useState(false)
 	const [ state_search_display, setStateSearchDisplay ] = useState({})
@@ -52,11 +52,12 @@ const Index = (props: any) => {
 				className={`
                               ${styles._local} 
                               ${state_scrolled ? styles.scrolled : ''} 
+                              ${theme === 'dark' ? styles.dark : ''} 
                               fixed w_100vw border_box flex justify_center align_center transition_normal relative
                         `}
 			>
 				<div className='left flex align_center absolute'>
-					<Logo type='white' size={1} />
+					<Logo type={theme === 'dark' ? 'main' : 'white'} size={1} />
 				</div>
 				<Input
 					className='input_search'
@@ -96,9 +97,11 @@ const Index = (props: any) => {
 						<SettingOutlined style={{ fontSize: '20px' }} />
 					</div>
 				</div>
+				<BackTop />
 			</div>
 			<div className={styles.placeholder} />
-			<Modal
+                  <Modal
+                        theme={theme}
 				dispatch={dispatch}
 				groups={groups}
 				analysis_data={analysis_data}

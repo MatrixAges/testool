@@ -1,25 +1,27 @@
 import React, { memo, useState, useEffect } from 'react'
 import { useIntl, getLocale, setLocale } from 'umi'
-import { Modal, Switch, Select } from 'antd'
+import { Modal, Switch, Select, Empty } from 'antd'
 import { PieChartOutlined, ImportOutlined, ExportOutlined, ClearOutlined } from '@ant-design/icons'
 import { ResponsiveContainer, ComposedChart, XAxis, YAxis, Tooltip, Bar, Line } from 'recharts'
 import store from 'store'
 import { IGetAnalysisData } from '@/services/app'
+import changeTheme from '@/themes/changeTheme'
 import styles from './index.less'
 
 const { Option } = Select
 
 interface IProps {
-	dispatch: (params: any) => void
+	theme: string
 	groups: Array<string>
 	analysis_data: Array<IGetAnalysisData>
 	visible: boolean
+	dispatch: (params: any) => void
 	onCancel: () => void
 	onDeleteGroup: (group: string) => void
 }
 
 const Index = (props: IProps) => {
-	const { dispatch, groups, analysis_data, visible, onCancel, onDeleteGroup } = props
+	const { theme, dispatch, groups, analysis_data, visible, onCancel, onDeleteGroup } = props
 	const lang = useIntl()
 	const [ state_modal_type, setStateModalType ] = useState('settings')
 	const [ state_group_selected, setStateGroupSelected ] = useState('')
@@ -49,13 +51,10 @@ const Index = (props: IProps) => {
 	}
 
 	const onChangeTheme = (v: boolean): void => {
-		let _theme: string = v ? 'light' : 'dark'
+		let _theme: 'light' | 'dark' = v ? 'light' : 'dark'
 
 		store.set('theme', _theme)
-
-		window.less.modifyVars({
-			'@primary-color': '#000000'
-		})
+		changeTheme(_theme)
 
 		dispatch({
 			type: 'app/updateState',
@@ -84,7 +83,11 @@ const Index = (props: IProps) => {
 
 	if (state_modal_type === 'settings') {
 		return (
-			<Modal className={styles._local} {...props_modal} footer={null}>
+			<Modal
+				className={`${styles._local} ${theme === 'dark' ? styles.dark : ''}`}
+				{...props_modal}
+				footer={null}
+			>
 				<div className='settings_wrap w_100 border_box'>
 					<div className='option_items w_100 border_box flex'>
 						<div
@@ -189,7 +192,7 @@ const Index = (props: IProps) => {
 	if (state_modal_type === 'clear') {
 		return (
 			<Modal
-				className={styles._local}
+				className={`${styles._local} ${theme === 'dark' ? styles.dark : ''}`}
 				{...props_modal}
 				width='360px'
 				title={lang.formatMessage({
@@ -221,7 +224,7 @@ const Index = (props: IProps) => {
 	if (state_modal_type === 'analysis') {
 		return (
 			<Modal
-				className={styles._local}
+				className={`${styles._local} ${theme === 'dark' ? styles.dark : ''}`}
 				{...props_modal}
 				title={lang.formatMessage({
 					id: 'layout.modal.name_analysis'
@@ -229,19 +232,25 @@ const Index = (props: IProps) => {
 				footer={null}
 			>
 				<div className='analysis_wrap w_100 border_box'>
-					<ResponsiveContainer width='100%' height={300}>
-						<ComposedChart data={analysis_data}>
-							<XAxis dataKey='name' />
-							<YAxis hide />
-							<Tooltip />
-							<Bar dataKey='total' barSize={20} fill='#000' />
-							<Line
-								dataKey='average_rate'
-								type='monotone'
-								stroke='#000'
-							/>
-						</ComposedChart>
-					</ResponsiveContainer>
+					{analysis_data.length > 0 ? (
+						<ResponsiveContainer width='100%' height={300}>
+							<ComposedChart data={analysis_data}>
+								<XAxis dataKey='name' />
+								<YAxis hide />
+								<Tooltip />
+								<Bar dataKey='total' barSize={20} fill='#000' />
+								<Line
+									dataKey='average_rate'
+									type='monotone'
+									stroke='#000'
+								/>
+							</ComposedChart>
+						</ResponsiveContainer>
+					) : (
+						<div className='empty_wrap w_100 border_box flex justify_center align_center pt_30 pb_30'>
+							<Empty description={false} />
+						</div>
+					)}
 				</div>
 			</Modal>
 		)

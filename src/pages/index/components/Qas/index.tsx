@@ -23,6 +23,7 @@ import styles from './index.less'
 const { confirm } = Modal
 
 interface IQa extends IQas {
+	theme: string
 	index: number
 	style?: any
 	ref?: any
@@ -35,6 +36,7 @@ interface IQa extends IQas {
 
 const Qa = (props: IQa) => {
 	const {
+		theme,
 		id,
 		index,
 		question,
@@ -72,7 +74,13 @@ const Qa = (props: IQa) => {
 
 	return (
 		<div ref={ref} className='w_100 border_box' style={style}>
-			<div className={`${styles.qa_item} w_100 border_box flex flex_column`}>
+			<div
+				className={`
+                              ${styles.qa_item} 
+                              ${theme === 'dark' ? styles.qa_item_dark : ''} 
+                              w_100 border_box flex flex_column
+                        `}
+			>
 				<div className='question w_100 border_box flex flex_column'>
 					<div className='q_head q_item w_100 border_box flex justify_between'>
 						<div className='left flex align_center'>
@@ -89,7 +97,8 @@ const Qa = (props: IQa) => {
 						</div>
 						<div className='right flex align_center'>
 							<div
-								className='icon_wrap flex justify_center align_center transition_normal cursor_point'
+								className={`icon_wrap flex justify_center align_center transition_normal cursor_point 
+                                                ${rates.length ? '' : 'disabled'}`}
 								onClick={() => {
 									confirm({
 										centered: true,
@@ -109,9 +118,8 @@ const Qa = (props: IQa) => {
 								<RedoOutlined />
 							</div>
 							<div
-								className={`icon_wrap flex justify_center align_center transition_normal cursor_point ${rates.length
-									? ''
-									: 'disabled color_aaa'}`}
+								className={`icon_wrap flex justify_center align_center transition_normal cursor_point 
+                                                ${rates.length ? '' : 'disabled'}`}
 								onClick={() => onChart(id, index)}
 							>
 								<LineChartOutlined />
@@ -158,13 +166,17 @@ const Qa = (props: IQa) => {
 				</div>
 				{state_answer_visible && (
 					<div
-						className={`${styles.answer} w_100 border_box flex flex_column transition_normal`}
+						className={`${styles.answer} ${theme === 'dark'
+							? styles.dark
+							: ''} w_100 border_box flex flex_column transition_normal`}
 					>
 						<div
 							className={`${styles.content} w_100 border_box text_justify`}
 						>
 							<ReactMarkDown
-								className={styles.markdown}
+								className={`${styles.markdown} ${theme === 'dark'
+									? styles.dark
+									: ''}`}
 								source={answer}
 								renderers={{ code: CodeBlock }}
 								skipHtml
@@ -209,6 +221,7 @@ const Qa = (props: IQa) => {
 interface IProps {
 	loading: boolean
 	loadway: string
+	theme: string
 	no_more: boolean
 	qas: Array<IQas>
 	total: number
@@ -224,6 +237,7 @@ const Index = (props: IProps) => {
 		dispatch,
 		loading,
 		loadway,
+		theme,
 		no_more,
 		qas,
 		total,
@@ -311,6 +325,7 @@ const Index = (props: IProps) => {
 			>
 				{({ registerChild, measure }) => (
 					<Qa
+						theme={theme}
 						index={index}
 						ref={registerChild}
 						measure={measure}
@@ -359,6 +374,7 @@ const Index = (props: IProps) => {
 						<div className='w_100 border_box flex flex_column'>
 							{qas.map((item, index) => (
 								<Qa
+									theme={theme}
 									index={index}
 									{...item}
 									rate={rate}

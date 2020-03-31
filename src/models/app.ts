@@ -13,7 +13,7 @@ export default {
 	state: {
 		groups: [],
 		current_group: '',
-		theme: store.get('theme'),
+		theme: store.get('theme') ? store.get('theme') : 'dark',
 		loadway: store.get('loadway'),
 		analysis_data: []
 	},
@@ -80,7 +80,7 @@ export default {
 			yield put({ type: 'query' })
 		},
 		*getAnalysisData ({}, { call, put }) {
-                  const res = yield call(Service_getAnalysisData)
+			const res = yield call(Service_getAnalysisData)
 
 			yield put({ type: 'updateState', payload: { analysis_data: res } })
 		}

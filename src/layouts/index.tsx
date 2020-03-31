@@ -1,6 +1,5 @@
 import React, { memo, Fragment } from 'react'
-import { useIntl } from 'umi'
-import { BackTop } from 'antd'
+import { connect, useIntl } from 'umi'
 import { Helmet } from 'react-helmet'
 import Header from './components/Header'
 import styles from './index.less'
@@ -9,7 +8,7 @@ import * as OfflinePluginRuntime from 'offline-plugin/runtime'
 OfflinePluginRuntime.install()
 
 const Index = (props: any) => {
-	const { children } = props
+	const { children, theme } = props
 	const lang = useIntl()
 
 	return (
@@ -18,12 +17,16 @@ const Index = (props: any) => {
 				<title>{lang.formatMessage({ id: 'site.title' })}</title>
 			</Helmet>
 			<Header />
-			<div className='w_100 flex justify_center'>
+			<div
+				className={`
+                              ${theme === 'dark' ? styles.dark : ''} 
+                              w_100 flex justify_center
+                        `}
+			>
 				<div className={styles.container}>{children}</div>
 			</div>
-                  <BackTop />
 		</Fragment>
 	)
 }
 
-export default memo(Index)
+export default memo(connect(({ app: { theme } }: any) => ({ theme }))(Index))

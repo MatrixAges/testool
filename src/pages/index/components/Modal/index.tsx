@@ -12,6 +12,7 @@ const { confirm } = Modal
 const { useForm, Item } = Form
 
 interface IProps {
+	theme: string
 	title: string
 	groups: Array<string>
 	current_group: string
@@ -28,6 +29,7 @@ interface IProps {
 
 const Index = (props: IProps) => {
 	const {
+		theme,
 		title,
 		groups,
 		current_group,
@@ -171,7 +173,12 @@ const Index = (props: IProps) => {
 	}
 	if (modal_type === 'add_group') {
 		return (
-			<Modal className={styles._local} {...props_modal} width='360px' footer={null}>
+			<Modal
+				className={`${styles._local} ${theme === 'dark' ? styles.dark : ''}`}
+				{...props_modal}
+				width='360px'
+				footer={null}
+			>
 				<Select
 					style={{ width: '100%' }}
 					placeholder={lang.formatMessage({
@@ -213,7 +220,11 @@ const Index = (props: IProps) => {
 
 	if (modal_type === 'rate_log') {
 		return (
-			<Modal className={styles._local} {...props_modal} footer={null}>
+			<Modal
+				className={`${styles._local} ${theme === 'dark' ? styles.dark : ''}`}
+				{...props_modal}
+				footer={null}
+			>
 				<ResponsiveContainer width='100%' height={120}>
 					<LineChart data={current_item.rates}>
 						<XAxis
@@ -232,7 +243,7 @@ const Index = (props: IProps) => {
 	if (modal_type === 'add_qa' || modal_type === 'edit_qa') {
 		return (
 			<Modal
-				className={styles._local}
+				className={`${styles._local} ${theme === 'dark' ? styles.dark : ''}`}
 				{...props_modal}
 				{..._footer}
 				onOk={onOk}
