@@ -81,9 +81,9 @@ const webpack_plugin_antd_theme: any = {
 		'@background-color-light',
 		'@background-color-base',
 		'@text-color-secondary',
-		'@color_background',
-		'@color_border_divide',
-		'@color_border_section'
+		'@body-background',
+		'@border-color-base',
+		'@border-color-split',
 	],
 	lessUrl: 'less.min.js',
 	publicPath: '/testool'

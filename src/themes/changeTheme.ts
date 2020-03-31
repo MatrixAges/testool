@@ -10,9 +10,9 @@ export default (theme: 'light' | 'dark') => {
 			'@background-color-light': '#333333',
 			'@background-color-base': '#333333',
 			'@text-color-secondary': '#333333',
-			'@color_background': '#202124',
-			'@color_border_divide': ' #242424',
-			'@color_border_section': '#242424'
+			'@body-background': '#202124',
+			'@border-color-base': '#242424',
+			'@border-color-split': '#242424'
 		})
 	}
 }
