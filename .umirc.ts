@@ -73,7 +73,18 @@ const webpack_plugin_antd_theme: any = {
 	stylesDir: path.join(__dirname, './src/themes'),
 	varFile: path.join(__dirname, './src/themes/skins/default.less'),
 	mainLessFile: path.join(__dirname, './src/global.less'),
-	themeVariables: [ '@primary-color' ],
+	themeVariables: [
+		'@text-color',
+		'@disabled-color',
+		'@item-hover-bg',
+		'@component-background',
+		'@background-color-light',
+		'@background-color-base',
+		'@text-color-secondary',
+		'@color_background',
+		'@color_border_divide',
+		'@color_border_section'
+	],
 	lessUrl: 'less.min.js',
 	publicPath: '/testool'
 }
