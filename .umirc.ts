@@ -74,6 +74,8 @@ const webpack_plugin_antd_theme: any = {
 	varFile: path.join(__dirname, './src/themes/skins/default.less'),
 	mainLessFile: path.join(__dirname, './src/global.less'),
 	themeVariables: [
+		'@border-color-base',
+		'@border-color-split',
 		'@text-color',
 		'@disabled-color',
 		'@item-hover-bg',
@@ -81,9 +83,7 @@ const webpack_plugin_antd_theme: any = {
 		'@background-color-light',
 		'@background-color-base',
 		'@text-color-secondary',
-		'@body-background',
-		'@border-color-base',
-		'@border-color-split',
+		'@body-background'
 	],
 	lessUrl: 'less.min.js',
 	publicPath: '/testool'

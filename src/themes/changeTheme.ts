@@ -1,9 +1,6 @@
 export default (theme: 'light' | 'dark') => {
 	if (theme === 'light') {
-		window.less.modifyVars({
-			'@border-color-split': 'whitesmoke',
-			'@border-color-base': 'whitesmoke'
-		})
+		window.less.modifyVars({})
 	} else {
 		window.less.modifyVars({
 			'@text-color': '#ffffff',
@@ -14,9 +11,8 @@ export default (theme: 'light' | 'dark') => {
 			'@background-color-base': '#333333',
 			'@text-color-secondary': '#333333',
 			'@body-background': '#202124',
-			'@border-color': '#242424',
-			'@border-color-base': '#242424',
-			'@border-color-split': '#242424'
+			'@border-color-base': '#292929',
+			'@border-color-split': '#292929'
 		})
 	}
 }

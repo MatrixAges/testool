@@ -1,25 +1,11 @@
 // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
-@import '../preset/helpers/colorPalette.less';
+@import '../../../node_modules/antd/lib/style/themes/index.less';
 
 //antd variables
+@font-size-base: 13px;
 @primary-color: #f44336;
 @border-radius-base: 6px;
 @border-radius-sm: 6px;
-@shadow-color: rgba(0, 0, 0, 0.05);
-@shadow-1-down: 4px 4px 40px @shadow-color;
-@font-size-base: 13px;
-@success-color: #52c41a;
-@warning-color: #faad14;
-@error-color: #f5222d;
-@hover-color: #eee;
-@table-row-hover-bg: white;
-@dark-half: #494949;
-@purple: #d897eb;
-@shadow-1: 4px 4px 20px 0 rgba(0, 0, 0, 0.01);
-@shadow-2: 4px 4px 40px 0 rgba(0, 0, 0, 0.05);
-@transition-ease-in: all 0.3s ease-in;
-@transition-ease-out: all 0.3s ease-out;
-@ease-in: ease-in;
 
 //custom variables
 @secondary-color: #cb2013;
@@ -32,13 +18,12 @@
 @box_shadow_section: 0 3px 8px 0 rgba(116, 129, 141, 0.1);
 @box_shadow_unit: 0px 0px 30px #ddd;
 
-
 //light theme variables
 @text-color: #000;
 @body-background: #f8f9fa;
 @component-background: #ffffff;
-// @border-color-split: whitesmoke;
-// @border-color-base: whitesmoke;
+@border-color-split: whitesmoke;
+@border-color-base: whitesmoke;
 
 //dark theme varialbles
 // @text-color: #ffffff;
@@ -49,12 +34,12 @@
 // @background-color-base: #333333;
 // @text-color-secondary: #333333;
 // @body-background: #202124;
-// @border-color-base: #242424;
-// @border-color-split: #242424;
+// @border-color-base: #292929;
+// @border-color-split: #292929;
 
 //global variables
 :root {
-      --hover-color: @hover-color;
+      --hover-color: #eee;
       --primary-color: @primary-color;
       --secondary-color: @secondary-color;
 
