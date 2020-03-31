@@ -75,7 +75,6 @@ const webpack_plugin_antd_theme: any = {
 	mainLessFile: path.join(__dirname, './src/global.less'),
 	themeVariables: [
 		'@border-color-base',
-		'@border-color-split',
 		'@text-color',
 		'@disabled-color',
 		'@item-hover-bg',
