@@ -13,7 +13,7 @@ export default {
 	state: {
 		groups: [],
 		current_group: '',
-		theme: store.get('theme') ? store.get('theme') : 'dark',
+		theme: store.get('theme') ? store.get('theme') : 'light',
 		loadway: store.get('loadway'),
 		analysis_data: []
 	},
