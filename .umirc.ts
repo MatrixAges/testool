@@ -3,12 +3,12 @@ import { defineConfig } from 'umi'
 import OfflinePlugin from 'offline-plugin'
 import WebpackPwaManifest from 'webpack-pwa-manifest'
 import AntDesignThemePlugin from 'antd-theme-webpack-plugin'
-import THEME from './src/themes/theme.config'
+import theme from './src/themes'
 
 export default defineConfig({
 	antd: {},
 	cssnano: {},
-	theme: THEME,
+	theme: theme,
 	base: '/testool/',
 	favicon: 'favicon.ico',
 	publicPath: '/testool/',
