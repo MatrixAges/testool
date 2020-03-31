@@ -1441,7 +1441,6 @@ this.tinycolor = tinycolor;
 
 //antd variables
 
-
 @border-radius-base: 6px;
 @border-radius-sm: 6px;
 @shadow-color: rgba(0, 0, 0, 0.05);
@@ -1491,6 +1490,9 @@ this.tinycolor = tinycolor;
 
       --light_box_shadow_card: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1.5px -2px rgba(0, 0, 0, 0.1);
       --light_bg_hover: rgba(0, 0, 0, 0.22);
+
+      //dark_mode
+      --dark_color_block: #292a2d;
 }
 
 .radius_0 {
@@ -1677,6 +1679,7 @@ this.tinycolor = tinycolor;
   --color_background: #f8f9fa;
   --color_unimportant_2: #ddd;
   --border_divide: 1px solid whitesmoke;
+  --dark_color_block: #292a2d;
 }
 body {
   background-color: #f8f9fa;
@@ -1684,24 +1687,13 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: #e6e6e6;
 }
-.ant-back-top .ant-back-top-content {
-  background-color: #ddd;
-  border-radius: var(--radius_normal);
-}
-.ant-back-top .ant-back-top-content:hover {
-  background-color: var(--primary-color);
-}
-.ant-select-dropdown {
-  background-color: white;
-}
-.ant-picker-dropdown .ant-picker-panel-container {
-  background-color: white;
+.ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: transparent;
 }
 .ant-spin-nested-loading > div > .ant-spin {
   background-color: rgba(255, 255, 255, 0.8);
 }
 .ant-calendar {
-  background-color: white;
   border: 1px solid #d4dadf;
 }
 .ant-calendar .ant-calendar-panel {
@@ -1711,7 +1703,6 @@ body {
   background-color: transparent;
 }
 .ant-cascader-menus {
-  background-color: white;
   border: 1px solid #d4dadf;
 }
 .ant-modal .ant-modal-content {
@@ -1722,11 +1713,13 @@ body {
   background-color: transparent;
   border-bottom: 1px solid whitesmoke;
 }
+.ant-modal .ant-modal-content .ant-modal-header .ant-modal-title {
+  color: #000;
+}
 .ant-modal .ant-modal-content .ant-modal-footer {
   border-top: 1px solid whitesmoke;
 }
 .ant-modal .ant-modal-content .ant-menu-submenu {
-  background-color: white;
   border: 1px solid #d4dadf;
 }
 .ant-modal .ant-modal-content .ant-menu-submenu-popup {
@@ -2002,6 +1995,149 @@ body {
 .bg_color_fff {
   background-color: #fff;
 }
+:root {
+  --hover-color: #eee;
+  --primary-color: @primary-color;
+  --secondary-color: #cb2013;
+  --color_background: #f8f9fa;
+  --color_unimportant_2: #ddd;
+  --border_divide: 1px solid whitesmoke;
+  --dark_color_block: #292a2d;
+}
+body {
+  background-color: #f8f9fa;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #e6e6e6;
+}
+.ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: transparent;
+}
+.ant-spin-nested-loading > div > .ant-spin {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.ant-calendar {
+  border: 1px solid #d4dadf;
+}
+.ant-calendar .ant-calendar-panel {
+  background-color: transparent;
+}
+.ant-calendar .ant-calendar-input {
+  background-color: transparent;
+}
+.ant-cascader-menus {
+  border: 1px solid #d4dadf;
+}
+.ant-modal .ant-modal-content {
+  border: 1px solid #d4dadf;
+  background-color: #f8f9fa;
+}
+.ant-modal .ant-modal-content .ant-modal-header {
+  background-color: transparent;
+  border-bottom: 1px solid whitesmoke;
+}
+.ant-modal .ant-modal-content .ant-modal-header .ant-modal-title {
+  color: #000;
+}
+.ant-modal .ant-modal-content .ant-modal-footer {
+  border-top: 1px solid whitesmoke;
+}
+.ant-modal .ant-modal-content .ant-menu-submenu {
+  border: 1px solid #d4dadf;
+}
+.ant-modal .ant-modal-content .ant-menu-submenu-popup {
+  background-color: transparent;
+}
+.ant-modal-mask {
+  background-color: rgba(55, 55, 55, 0.2);
+}
+.ant-modal-content {
+  box-shadow: none;
+}
+.ant-breadcrumb .ant-breadcrumb-separator {
+  color: black;
+}
+.ant-breadcrumb > span a {
+  color: black;
+}
+.ant-popover {
+  background-color: transparent;
+}
+.ant-popover .ant-popover-content {
+  background-color: white;
+  border-radius: 6px;
+}
+.ant-popover .ant-popover-content .ant-popover-inner {
+  background-color: transparent;
+  box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
+}
+.ant-popover .ant-popover-content .ant-popover-inner .ant-popover-inner-content {
+  background-color: transparent;
+}
+.ant-popover .ant-popover-content .ant-popover-inner .ant-popover-inner-content .ant-list {
+  background-color: transparent;
+}
+.ant-popover-placement-left > .ant-popover-content > .ant-popover-arrow,
+.ant-popover-placement-leftTop > .ant-popover-content > .ant-popover-arrow,
+.ant-popover-placement-leftBottom > .ant-popover-content > .ant-popover-arrow {
+  border-top-color: #f8f9fa;
+  border-right-color: #f8f9fa;
+}
+.ant-table {
+  background-color: transparent !important;
+}
+.ant-table .ant-table-container table {
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
+.ant-table .ant-table-container .ant-table-fixed {
+  background-color: transparent;
+}
+.ant-table .ant-table-container thead tr th {
+  border-right: none;
+  border-bottom: none;
+  color: #aaa;
+  background-color: #f8f9fa;
+}
+.ant-table .ant-table-container thead > tr > th .ant-checkbox-inner,
+.ant-table .ant-table-container tbody > tr > td .ant-checkbox-inner {
+  border: 1px solid #ccc;
+}
+.ant-table .ant-table-container thead > tr > th .ant-radio-inner,
+.ant-table .ant-table-container tbody > tr > td .ant-radio-inner {
+  border: 1px solid #ccc;
+}
+.ant-table .ant-table-container tbody > tr > td {
+  border-right: none;
+  border-bottom: none;
+  background-color: white;
+  border: none;
+}
+.ant-table .ant-table-container tbody > tr > td:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.ant-table .ant-table-container tbody > tr > td:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.ant-table .ant-table-container tbody > tr:hover {
+  box-shadow: 0px 0px 30px #ddd;
+  border-radius: 6px;
+}
+.ant-tabs-bar {
+  border-bottom: 1px solid #d4dadf;
+}
+.ant-popover-inner {
+  border: none;
+  box-shadow: 0 0 20px rgba(100, 100, 100, 0.2);
+}
+.drop-over-downward td {
+  border-bottom: 2px dashed #1890ff !important;
+}
+.drop-over-upward td {
+  border-top: 2px dashed #1890ff !important;
+}
 
 .backdrop_blur {
   background-color: white;
@@ -2013,6 +2149,7 @@ body {
   --color_background: #f8f9fa;
   --color_unimportant_2: #ddd;
   --border_divide: 1px solid whitesmoke;
+  --dark_color_block: #292a2d;
 }
 html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -8317,5 +8454,6 @@ h4.ant-typography,
   --color_background: #f8f9fa;
   --color_unimportant_2: #ddd;
   --border_divide: 1px solid whitesmoke;
+  --dark_color_block: #292a2d;
 }
 
