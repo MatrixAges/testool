@@ -3,7 +3,6 @@ export default (theme: 'light' | 'dark') => {
 		window.less.modifyVars({})
 	} else {
 		window.less.modifyVars({
-			'@border-color-base': '#292929',
 			'@text-color': '#ffffff',
 			'@disabled-color': '#333333',
 			'@item-hover-bg': '#333333',
@@ -11,7 +10,9 @@ export default (theme: 'light' | 'dark') => {
 			'@background-color-light': '#333333',
 			'@background-color-base': '#333333',
 			'@text-color-secondary': '#333333',
-			'@body-background': '#202124'
+                  '@body-background': '#202124',
+			'@border-color-base': '#292929',
+			'@border-color-split': '#292929',
 		})
 	}
 }
