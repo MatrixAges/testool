@@ -3877,8 +3877,6 @@ this.tinycolor = tinycolor;
 @primary-color: #f44336;
 @border-radius-base: 6px;
 @border-radius-sm: 6px;
-@shadow-color: rgba(0, 0, 0, 0.05);
-@shadow-1-down: 4px 4px 40px @shadow-color;
 @font-size-base: 13px;
 @success-color: #52c41a;
 @warning-color: #faad14;
@@ -4148,7 +4146,7 @@ body {
   background-color: transparent;
 }
 .ant-modal-mask {
-  background-color: rgba(55, 55, 55, 0.2);
+  background-color: rgba(55, 55, 55, 0.2) !important;
 }
 .ant-modal-content {
   box-shadow: none;
@@ -4453,7 +4451,7 @@ body {
   background-color: transparent;
 }
 .ant-modal-mask {
-  background-color: rgba(55, 55, 55, 0.2);
+  background-color: rgba(55, 55, 55, 0.2) !important;
 }
 .ant-modal-content {
   box-shadow: none;
@@ -7307,7 +7305,7 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:last-child::afte
   box-shadow: -6px 0 16px -8px rgba(0, 0, 0, 0.08), -9px 0 28px 0 rgba(0, 0, 0, 0.05), -12px 0 48px 16px rgba(0, 0, 0, 0.03);
 }
 .ant-drawer-top.ant-drawer-open .ant-drawer-content-wrapper {
-  box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.08), 0 9px 28px 0 rgba(0, 0, 0, 0.05), 0 12px 48px 16px rgba(0, 0, 0, 0.03);
 }
 .ant-drawer-bottom.ant-drawer-open .ant-drawer-content-wrapper {
   box-shadow: 0 -6px 16px -8px rgba(0, 0, 0, 0.08), 0 -9px 28px 0 rgba(0, 0, 0, 0.05), 0 -12px 48px 16px rgba(0, 0, 0, 0.03);
@@ -8955,7 +8953,7 @@ tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:last-child::afte
   background-clip: padding-box;
   border-radius: 6px;
   box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05) ;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15) ;
 }
 .ant-popover-title {
   color: rgba(0, 0, 0, 0.85);
@@ -9917,18 +9915,18 @@ tr.ant-table-expanded-row:hover > td {
   background: @component-background;
 }
 .ant-table-ping-left:not(.ant-table-has-fix-left) .ant-table-container::before {
-  box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
 }
 .ant-table-ping-left .ant-table-cell-fix-left-first::after,
 .ant-table-ping-left .ant-table-cell-fix-left-last::after {
-  box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
 }
 .ant-table-ping-right:not(.ant-table-has-fix-right) .ant-table-container::after {
-  box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.05);
+  box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15);
 }
 .ant-table-ping-right .ant-table-cell-fix-right-first::after,
 .ant-table-ping-right .ant-table-cell-fix-right-last::after {
-  box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.05);
+  box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15);
 }
 .ant-table-title {
   border-radius: 6px 6px 0 0;
