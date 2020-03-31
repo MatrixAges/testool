@@ -238,11 +238,15 @@ const Index = (props: IProps) => {
 								<XAxis dataKey='name' />
 								<YAxis hide />
 								<Tooltip />
-								<Bar dataKey='total' barSize={20} fill='#000' />
+								<Bar
+									dataKey='total'
+									barSize={20}
+									fill={theme === 'dark' ? '#fff' : '#000'}
+								/>
 								<Line
 									dataKey='average_rate'
 									type='monotone'
-									stroke='#000'
+									stroke={theme === 'dark' ? '#f44336' : '#000'}
 								/>
 							</ComposedChart>
 						</ResponsiveContainer>

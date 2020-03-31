@@ -233,7 +233,7 @@ const Index = (props: IProps) => {
 						/>
 						<YAxis dataKey='rate' domain={[ 0, 5 ]} hide />
 						<Tooltip />
-						<Line dataKey='rate' type='monotone' stroke='#000' />
+                                    <Line dataKey='rate' type='monotone' stroke={theme==='dark'?'#f44336':'#000'} />
 					</LineChart>
 				</ResponsiveContainer>
 			</Modal>

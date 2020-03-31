@@ -41,9 +41,9 @@
       &.qa_item_dark {
             background-color: var(--dark_color_block);
 
-            :global{
-                  .question{
-                        .q_head{
+            :global {
+                  .question {
+                        .q_head {
                               border-bottom: 1px solid #2f2f2f;
                         }
                   }
@@ -110,10 +110,10 @@
                   animation: show 0.3s ease;
                   padding: 16px 20px;
                   overflow-y: scroll;
-                  border-top: 1px dashed #ddd;
+                  box-shadow: 0 2px 10px #eee inset;
 
-                  &.dark{
-                        border-top: 1px dashed rgba(255, 255, 255, 0.2);
+                  &.dark {
+                        box-shadow: 0 2px 10px #222 inset;
                   }
             }
 

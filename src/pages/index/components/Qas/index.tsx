@@ -36,7 +36,6 @@ interface IQa extends IQas {
 
 const Qa = (props: IQa) => {
 	const {
-		theme,
 		id,
 		index,
 		question,
@@ -53,7 +52,9 @@ const Qa = (props: IQa) => {
 	} = props
 	const [ state_answer_visible, setStateAnswerVisible ] = useState(false)
 	const [ state_rate, setStateRate ] = useState(5)
-	const lang = useIntl()
+      const lang = useIntl()
+      
+      const theme='dark'
 
 	useEffect(
 		() => {
