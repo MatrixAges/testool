@@ -4,7 +4,8 @@ import {
 	Service_addTableGroups,
 	Service_getAllGroups,
 	Service_deleteGroup,
-	Service_getAnalysisData
+	Service_getAnalysisData,
+	Service_exportData
 } from '@/services/app'
 
 export default {
@@ -83,6 +84,17 @@ export default {
 			const res = yield call(Service_getAnalysisData)
 
 			yield put({ type: 'updateState', payload: { analysis_data: res } })
+		},
+		*exportData ({}, { call }) {
+			const res = yield call(Service_exportData)
+
+                  const data = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(res))}`
+                  const download_anchor = document.getElementById('download_anchor_of_data')
+                  
+                  download_anchor.setAttribute('href',data)
+                  download_anchor.setAttribute('download', 'testool_data.json')
+                  
+                  download_anchor.click()
 		}
 	},
 

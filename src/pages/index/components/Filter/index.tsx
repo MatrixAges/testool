@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import { useIntl } from 'umi'
 import { Select, Button, Form } from 'antd'
+import { ReloadOutlined, SearchOutlined } from '@ant-design/icons'
 import styles from './index.less'
 
 const { Option } = Select
@@ -89,16 +90,13 @@ const Index = (props: IProps) => {
 			<div className='option_items flex'>
 				<Button
 					className='mr_12'
+					icon={<ReloadOutlined />}
 					onClick={() => {
 						reset()
 						resetFields()
 					}}
-				>
-					{lang.formatMessage({ id: 'index.filter.reset' })}
-				</Button>
-				<Button type='primary' onClick={submit}>
-					{lang.formatMessage({ id: 'index.filter.search' })}
-				</Button>
+				/>
+				<Button type='primary' icon={<SearchOutlined />} onClick={submit} />
 			</div>
 		</Form>
 	)

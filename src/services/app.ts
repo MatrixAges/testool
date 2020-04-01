@@ -1,10 +1,15 @@
 import Groups from '@/db/models/Groups'
-import Qas from '@/db/models/Qas'
+import Qas, { IQas } from '@/db/models/Qas'
 
 export interface IGetAnalysisData {
 	name: string
 	total: number
 	average_rate: number
+}
+
+export interface IExportData {
+	name: string
+	data: Array<IQas>
 }
 
 export const Service_addTableGroups = async (): Promise<boolean> => {
@@ -55,4 +60,22 @@ export const Service_getAnalysisData = async (): Promise<Array<IGetAnalysisData>
 	}
 
 	return analysis_data
+}
+
+export const Service_exportData = async (): Promise<Array<IExportData>> => {
+	const groups = new Groups()
+	const groups_array = await groups.getGroups()
+	const export_data = []
+
+	for (let i of groups_array) {
+		const qa = new Qas(i)
+		const total_qas = await qa.getTotalQas()
+
+		export_data.push({
+			name: i,
+			data: total_qas
+		})
+	}
+
+	return export_data
 }

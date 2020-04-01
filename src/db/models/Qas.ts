@@ -145,6 +145,12 @@ export default class Qas extends Dexie {
 		return array.length
 	}
 
+	async getTotalQas (): Promise<Array<IQas>> {
+		await this.init()
+
+		return await this.qas.toArray()
+	}
+
 	async getAverageRate (): Promise<number> {
 		await this.init()
 

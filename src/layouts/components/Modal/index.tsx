@@ -78,6 +78,12 @@ const Index = (props: IProps) => {
 			dispatch({ type: 'app/getAnalysisData' })
 		}
 
+		if (type === 'export') {
+			dispatch({ type: 'app/exportData' })
+
+			return
+		}
+
 		setStateModalType(type)
 	}
 
@@ -112,6 +118,7 @@ const Index = (props: IProps) => {
 								})}
 							</span>
 						</div>
+						<a id='download_anchor_of_data' className='none' />
 						<div
 							className='option_item flex flex_column align_center cursor_point transition_normal'
 							onClick={() => onChangeModalType('export')}
