@@ -7,7 +7,7 @@ import {
 	Service_addQa,
 	Service_delQa,
 	Service_putQa,
-	Service_searchQaByQuestion,
+	Service_query,
 	Service_getQas,
 	Service_getTotal,
 	Service_rate,
@@ -151,10 +151,10 @@ export default modelExtend(pageModel, {
 				}
 			})
 		},
-		*searchQaByQuestion ({ payload }, { call, put }) {
-			const { current_group, query } = payload
+		*queryQa ({ payload }, { call, put }) {
+			const { current_group, params: { query, times, rate } } = payload
 
-			const qas = yield call(Service_searchQaByQuestion, current_group, query)
+			const qas = yield call(Service_query, current_group, { query, times, rate })
 
 			yield put({
 				type: 'updateState',

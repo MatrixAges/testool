@@ -1,5 +1,5 @@
 import Groups from '@/db/models/Groups'
-import Qas, { IQas, IRate } from '@/db/models/Qas'
+import Qas, { IQas, IRate, IQuery } from '@/db/models/Qas'
 
 export const Service_addGroup = async (group: string): Promise<boolean> => {
 	const groups = new Groups()
@@ -53,13 +53,13 @@ export const Service_putQa = async (
 	return true
 }
 
-export const Service_searchQaByQuestion = async (
+export const Service_query = async (
 	current_group: string,
-	query: string
+	{ query, times, rate }: IQuery
 ): Promise<Array<IQas>> => {
 	const qa = new Qas(current_group)
 
-	return await qa.searchQaByQuestion(query)
+	return await qa.query({ query, times, rate })
 }
 
 export const Service_getQas = async (

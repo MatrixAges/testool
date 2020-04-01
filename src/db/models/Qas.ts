@@ -18,6 +18,12 @@ export interface IRate {
 	rate: number
 }
 
+export interface IQuery {
+	query?: string
+	times?: number
+	rate?: number
+}
+
 export default class Qas extends Dexie {
 	qas: Dexie.Table<IQas, number>
 
@@ -59,12 +65,45 @@ export default class Qas extends Dexie {
 		})
 	}
 
-	async searchQaByQuestion (query: string): Promise<Array<IQas>> {
+	async query ({ query, times, rate }: IQuery): Promise<Array<IQas>> {
 		await this.init()
 
-		return await this.qas
-			.filter((item) => new RegExp(query).test(item.question))
-			.toArray()
+		if (query) {
+			return await this.qas
+				.filter((item) => new RegExp(query).test(item.question))
+				.toArray()
+		} else {
+			if (times && !rate) {
+				return await this.qas.filter((item) => item.rates.length < times).toArray()
+			}
+
+			if (!times && rate) {
+				return await this.qas
+					.filter((item) => {
+						const total: number = item.rates.reduce(
+							(total: number, curr: IRates) => total + curr.rate,
+							0
+						)
+
+						return total / item.rates.length <= rate
+					})
+					.toArray()
+			}
+
+			if (times && rate) {
+				return await this.qas
+					.filter((item) => item.rates.length < times)
+					.filter((item) => {
+						const total: number = item.rates.reduce(
+							(total: number, curr: IRates) => total + curr.rate,
+							0
+						)
+
+						return total / item.rates.length <= rate
+					})
+					.toArray()
+			}
+		}
 	}
 
 	async rate ({ id, rate }: IRate): Promise<void> {
@@ -119,11 +158,10 @@ export default class Qas extends Dexie {
 		array.map((item) => {
 			const length_rates = item.rates.length
 
-			let total_rates: number = 0
-
-			item.rates.map((it) => {
-				total_rates = total_rates + it.rate
-			})
+			const total_rates: number = item.rates.reduce(
+				(total: number, curr: IRates) => total + curr.rate,
+				0
+			)
 
 			if (length_rates) {
 				total_all = total_all + total_rates / length_rates

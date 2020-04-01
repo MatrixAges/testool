@@ -49,10 +49,12 @@ const Index = (props: any) => {
 	const searchQaByQuestion = (e: any) => {
 		if (e.target.value) {
 			dispatch({
-				type: 'index/searchQaByQuestion',
+				type: 'index/queryQa',
 				payload: {
 					current_group,
-					query: e.target.value
+					params: {
+						query: e.target.value
+					}
 				}
 			})
 

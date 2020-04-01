@@ -12,13 +12,17 @@
       animation: show 0.3s ease;
       margin-bottom: 24px;
 
-      :global{
-            .select_filter{
+      :global {
+            .ant-form-item {
+                  margin-bottom: 0;
+            }
+
+            .select_filter {
                   width: 160px;
             }
 
             @media screen and (max-width:420px) {
-                  .select_filter{
+                  .select_filter {
                         width: 40vw;
                   }
             }

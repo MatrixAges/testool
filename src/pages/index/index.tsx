@@ -17,7 +17,16 @@ const Index = (props: any) => {
 		loading,
 		dispatch,
 		app: { groups, current_group, theme, loadway },
-		index: { modal_visible, modal_type, filter_visible, qas, total, no_more, current_item,querying }
+		index: {
+			modal_visible,
+			modal_type,
+			filter_visible,
+			qas,
+			total,
+			no_more,
+			current_item,
+			querying
+		}
 	} = props
 	const lang = useIntl()
 
@@ -159,9 +168,45 @@ const Index = (props: any) => {
 		}
 	}
 
+	const props_filter = {
+		queryQa ({ times, rate }) {
+			dispatch({
+				type: 'index/queryQa',
+				payload: {
+					current_group,
+					params: {
+						times,
+						rate
+					}
+				}
+			})
+
+			dispatch({
+				type: 'index/updateState',
+				payload: { querying: true }
+			})
+		},
+		reset () {
+			dispatch({
+				type: 'index/query',
+				payload: {
+					current_group
+				}
+			})
+
+			dispatch({
+				type: 'index/updateState',
+				payload: {
+					no_more: false,
+					querying: false
+				}
+			})
+		}
+	}
+
 	const props_qas = {
-            dispatch,
-            querying,
+		dispatch,
+		querying,
 		theme,
 		loadway,
 		no_more,
@@ -200,7 +245,7 @@ const Index = (props: any) => {
 		<div className='w_100 border_box flex flex_column'>
 			<Modal {...props_modal} />
 			{groups.length > 0 && <Header {...props_header} />}
-			{filter_visible && <Filter />}
+			{filter_visible && <Filter {...props_filter} />}
 			<Qas {...props_qas} />
 		</div>
 	)
