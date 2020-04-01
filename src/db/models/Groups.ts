@@ -25,7 +25,7 @@ export default class Groups extends Dexie {
 	async addGroup (name: string): Promise<void> {
 		await this.init()
 
-		this.transaction('rw', this.groups, async () => {
+		await this.transaction('rw', this.groups, async () => {
 			await this.groups.add({ name })
 		})
 	}
@@ -41,7 +41,7 @@ export default class Groups extends Dexie {
 			}
 		})
 
-		this.transaction('rw', this.groups, async () => {
+		await this.transaction('rw', this.groups, async () => {
 			await this.groups.delete(id)
 		})
 	}

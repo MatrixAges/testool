@@ -44,15 +44,31 @@ export default class Qas extends Dexie {
 	async addQa ({ question, answer, tags }: IQas): Promise<void> {
 		await this.init()
 
-		this.transaction('rw', this.qas, async () => {
+		await this.transaction('rw', this.qas, async () => {
 			await this.qas.add({ question, answer, tags, rates: [] })
 		})
+	}
+
+	async bulkAddQa (array: Array<IQas>): Promise<boolean | string> {
+		await this.init()
+
+		const res = await this.transaction('rw', this.qas, async () => {
+			try {
+				await this.qas.bulkAdd(array)
+
+				return true
+			} catch (e) {
+				return e.message
+			}
+		})
+
+		return res
 	}
 
 	async delQa (id: number): Promise<void> {
 		await this.init()
 
-		this.transaction('rw', this.qas, async () => {
+		await this.transaction('rw', this.qas, async () => {
 			await this.qas.delete(id)
 		})
 	}
@@ -60,7 +76,7 @@ export default class Qas extends Dexie {
 	async putQa (id: number, { question, answer, tags }: IQas): Promise<void> {
 		await this.init()
 
-		this.transaction('rw', this.qas, async () => {
+		await this.transaction('rw', this.qas, async () => {
 			await this.qas.update(id, { question, answer, tags })
 		})
 	}
@@ -109,7 +125,7 @@ export default class Qas extends Dexie {
 	async rate ({ id, rate }: IRate): Promise<void> {
 		await this.init()
 
-		this.transaction('rw', this.qas, async () => {
+		await this.transaction('rw', this.qas, async () => {
 			await this.qas
 				.where('id')
 				.equals(id)
@@ -122,7 +138,7 @@ export default class Qas extends Dexie {
 	async clearRateLog (id: number): Promise<void> {
 		await this.init()
 
-		this.transaction('rw', this.qas, async () => {
+		await this.transaction('rw', this.qas, async () => {
 			await this.qas.update(id, { rates: [] })
 		})
 	}

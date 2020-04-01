@@ -145,6 +145,7 @@ const Index = (props: any) => {
 					setStateModalVisible(false)
 				}}
 				onDeleteGroup={onDeleteGroup}
+				setStateModalVisible={setStateModalVisible}
 			/>
 		</Fragment>
 	)

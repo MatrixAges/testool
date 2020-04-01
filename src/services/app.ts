@@ -1,5 +1,6 @@
 import Groups from '@/db/models/Groups'
 import Qas, { IQas } from '@/db/models/Qas'
+import { Service_addGroup } from './index'
 
 export interface IGetAnalysisData {
 	name: string
@@ -60,6 +61,20 @@ export const Service_getAnalysisData = async (): Promise<Array<IGetAnalysisData>
 	}
 
 	return analysis_data
+}
+
+export const Service_importData = async (data: Array<IExportData>): Promise<boolean | string> => {
+	for (let i of data) {
+		await Service_addGroup(i.name)
+
+		const qa = new Qas(i.name)
+
+		const res = await qa.bulkAddQa(i.data)
+
+		if (res !== true) return res
+	}
+
+	return true
 }
 
 export const Service_exportData = async (): Promise<Array<IExportData>> => {

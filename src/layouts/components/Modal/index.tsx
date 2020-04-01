@@ -1,11 +1,12 @@
 import React, { memo, useState, useEffect } from 'react'
 import { useIntl, getLocale, setLocale } from 'umi'
-import { Modal, Switch, Select, Empty } from 'antd'
+import { Modal, Switch, Select, Empty, message } from 'antd'
 import { PieChartOutlined, ImportOutlined, ExportOutlined, ClearOutlined } from '@ant-design/icons'
 import { ResponsiveContainer, ComposedChart, XAxis, YAxis, Tooltip, Bar, Line } from 'recharts'
 import store from 'store'
 import { IGetAnalysisData } from '@/services/app'
 import changeTheme from '@/themes/changeTheme'
+import formatCheckOK from '@/utils/helpers/formatCheckOK'
 import styles from './index.less'
 
 const { Option } = Select
@@ -18,10 +19,20 @@ interface IProps {
 	dispatch: (params: any) => void
 	onCancel: () => void
 	onDeleteGroup: (group: string) => void
+	setStateModalVisible: (visible: boolean) => void
 }
 
 const Index = (props: IProps) => {
-	const { theme, dispatch, groups, analysis_data, visible, onCancel, onDeleteGroup } = props
+	const {
+		theme,
+		dispatch,
+		groups,
+		analysis_data,
+		visible,
+		onCancel,
+		onDeleteGroup,
+		setStateModalVisible
+	} = props
 	const lang = useIntl()
 	const [ state_modal_type, setStateModalType ] = useState('settings')
 	const [ state_group_selected, setStateGroupSelected ] = useState('')
@@ -78,6 +89,55 @@ const Index = (props: IProps) => {
 			dispatch({ type: 'app/getAnalysisData' })
 		}
 
+		if (type === 'import') {
+			const message_success = lang.formatMessage({
+				id: 'layout.modal.import.message_success'
+			})
+			const message_failed = lang.formatMessage({
+				id: 'layout.modal.import.message_failed'
+			})
+
+			const upload_anchor = document.getElementById('upload_anchor_of_data')
+
+			upload_anchor.click()
+			upload_anchor.addEventListener('change', function (){
+				const _that: any = this
+				const files = _that.files
+
+				if (!files.length) return
+
+				const data = files[0]
+				const reader = new FileReader()
+
+				reader.readAsText(data)
+				reader.onload = (e) => {
+					const result: any = e.target.result
+
+					try {
+						const target_data = JSON.parse(result)
+
+						if (!formatCheckOK(target_data)) {
+							message.error(message_failed)
+						} else {
+							dispatch({
+								type: 'app/importData',
+								payload: {
+									data: target_data,
+									message_success
+								}
+							})
+
+							setStateModalVisible(false)
+						}
+					} catch (_) {
+						message.error(message_failed)
+					}
+				}
+			})
+
+			return
+		}
+
 		if (type === 'export') {
 			dispatch({ type: 'app/exportData' })
 
@@ -107,6 +167,12 @@ const Index = (props: IProps) => {
 								})}
 							</span>
 						</div>
+						<input
+							id='upload_anchor_of_data'
+							className='none'
+							type='file'
+							accept='.json'
+						/>
 						<div
 							className='option_item flex flex_column align_center cursor_point transition_normal'
 							onClick={() => onChangeModalType('import')}

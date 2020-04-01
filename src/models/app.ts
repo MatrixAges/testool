@@ -5,6 +5,7 @@ import {
 	Service_getAllGroups,
 	Service_deleteGroup,
 	Service_getAnalysisData,
+	Service_importData,
 	Service_exportData
 } from '@/services/app'
 
@@ -85,16 +86,31 @@ export default {
 
 			yield put({ type: 'updateState', payload: { analysis_data: res } })
 		},
+		*importData ({ payload }, { call, put }) {
+			const { data, message_success } = payload
+
+                  const res = yield call(Service_importData, data)
+
+			if (res === true) {
+				message.success(message_success)
+
+				yield put({ type: 'query' })
+			} else {
+				message.error(res)
+			}
+		},
 		*exportData ({}, { call }) {
 			const res = yield call(Service_exportData)
 
-                  const data = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(res))}`
-                  const download_anchor = document.getElementById('download_anchor_of_data')
-                  
-                  download_anchor.setAttribute('href',data)
-                  download_anchor.setAttribute('download', 'testool_data.json')
-                  
-                  download_anchor.click()
+			const data = `data:text/json;charset=utf-8,${encodeURIComponent(
+				JSON.stringify(res)
+			)}`
+			const download_anchor = document.getElementById('download_anchor_of_data')
+
+			download_anchor.setAttribute('href', data)
+			download_anchor.setAttribute('download', 'testool_data.json')
+
+			download_anchor.click()
 		}
 	},
 
