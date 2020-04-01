@@ -10,9 +10,11 @@ OfflinePluginRuntime.install()
 
 const Index = (props: any) => {
 	const { children, theme } = props
-      const lang = useIntl()
-      
-      changeTheme(theme)
+	const lang = useIntl()
+
+	if (process.env.NODE_ENV !== 'development') {
+		changeTheme(theme)
+	}
 
 	return (
 		<Fragment>

@@ -7,6 +7,7 @@ import {
 	Service_addQa,
 	Service_delQa,
 	Service_putQa,
+	Service_searchQaByQuestion,
 	Service_getQas,
 	Service_getTotal,
 	Service_rate,
@@ -25,7 +26,8 @@ export default modelExtend(pageModel, {
 		no_more: false,
 		current_item: {},
 		current_id: 0,
-		current_index: 0
+		current_index: 0,
+		querying: false
 	},
 
 	subscriptions: {},
@@ -36,6 +38,11 @@ export default modelExtend(pageModel, {
 
 			const qas = yield call(Service_getQas, current_group, page)
 			const total = yield call(Service_getTotal, current_group)
+
+			yield put({
+				type: 'updateState',
+				payload: { qas, total }
+			})
 
 			yield put({
 				type: 'updateState',
@@ -135,6 +142,19 @@ export default modelExtend(pageModel, {
 			}
 
 			qas[current_index] = Object.assign(qas[current_index], params)
+
+			yield put({
+				type: 'updateState',
+				payload: {
+					modal_visible: false,
+					qas: qas
+				}
+			})
+		},
+		*searchQaByQuestion ({ payload }, { call, put }) {
+			const { current_group, query } = payload
+
+			const qas = yield call(Service_searchQaByQuestion, current_group, query)
 
 			yield put({
 				type: 'updateState',

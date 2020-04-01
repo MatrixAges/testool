@@ -7,14 +7,14 @@ import Modal from '../Modal'
 import styles from './index.less'
 
 const Index = (props: any) => {
-	const { dispatch, app: { groups, analysis_data, theme } } = props
+	const { dispatch, app: { groups, analysis_data, theme, current_group } } = props
 	const [ state_scrolled, setStateScrolled ] = useState(false)
 	const [ state_modal_visible, setStateModalVisible ] = useState(false)
 	const [ state_search_display, setStateSearchDisplay ] = useState({})
 	const lang = useIntl()
 
 	useEffect(() => {
-		const setScrolled = (e) => {
+		const setScrolled = (e: any) => {
 			if (e.srcElement['documentElement'].scrollTop) {
 				setStateScrolled(true)
 			} else {
@@ -46,6 +46,38 @@ const Index = (props: any) => {
 		setStateModalVisible(false)
 	}
 
+	const searchQaByQuestion = (e: any) => {
+		if (e.target.value) {
+			dispatch({
+				type: 'index/searchQaByQuestion',
+				payload: {
+					current_group,
+					query: e.target.value
+				}
+			})
+
+			dispatch({
+				type: 'index/updateState',
+				payload: { querying: true }
+			})
+		} else {
+			dispatch({
+				type: 'index/query',
+				payload: {
+					current_group
+				}
+			})
+
+			dispatch({
+				type: 'index/updateState',
+				payload: {
+					no_more: false,
+					querying: false
+				}
+			})
+		}
+	}
+
 	return (
 		<Fragment>
 			<div
@@ -63,11 +95,12 @@ const Index = (props: any) => {
 					className='input_search'
 					placeholder={lang.formatMessage({ id: 'header.search.placeholder' })}
 					prefix={<SearchOutlined style={{ color: 'white' }} />}
+					style={{ ...state_search_display }}
 					allowClear={true}
 					maxLength={16}
 					size='large'
 					type='search'
-					style={{ ...state_search_display }}
+					onChange={searchQaByQuestion}
 				/>
 				<div className='right flex align_center absolute'>
 					{!state_search_display['display'] && (
@@ -100,8 +133,8 @@ const Index = (props: any) => {
 				<BackTop />
 			</div>
 			<div className={styles.placeholder} />
-                  <Modal
-                        theme={theme}
+			<Modal
+				theme={theme}
 				dispatch={dispatch}
 				groups={groups}
 				analysis_data={analysis_data}

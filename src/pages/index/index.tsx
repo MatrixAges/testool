@@ -17,7 +17,7 @@ const Index = (props: any) => {
 		loading,
 		dispatch,
 		app: { groups, current_group, theme, loadway },
-		index: { modal_visible, modal_type, filter_visible, qas, total, no_more, current_item }
+		index: { modal_visible, modal_type, filter_visible, qas, total, no_more, current_item,querying }
 	} = props
 	const lang = useIntl()
 
@@ -160,7 +160,8 @@ const Index = (props: any) => {
 	}
 
 	const props_qas = {
-		dispatch,
+            dispatch,
+            querying,
 		theme,
 		loadway,
 		no_more,

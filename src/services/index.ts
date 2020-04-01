@@ -53,6 +53,15 @@ export const Service_putQa = async (
 	return true
 }
 
+export const Service_searchQaByQuestion = async (
+	current_group: string,
+	query: string
+): Promise<Array<IQas>> => {
+	const qa = new Qas(current_group)
+
+	return await qa.searchQaByQuestion(query)
+}
+
 export const Service_getQas = async (
 	current_group: string,
 	page?: number,
@@ -82,7 +91,7 @@ export const Service_rate = async (current_group: string, params: IRate): Promis
 }
 
 export const Service_clearRateLog = async (current_group: string, id: number): Promise<boolean> => {
-      const qa = new Qas(current_group)
+	const qa = new Qas(current_group)
 
 	try {
 		await qa.clearRateLog(id)

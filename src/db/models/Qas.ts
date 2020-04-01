@@ -59,6 +59,14 @@ export default class Qas extends Dexie {
 		})
 	}
 
+	async searchQaByQuestion (query: string): Promise<Array<IQas>> {
+		await this.init()
+
+		return await this.qas
+			.filter((item) => new RegExp(query).test(item.question))
+			.toArray()
+	}
+
 	async rate ({ id, rate }: IRate): Promise<void> {
 		await this.init()
 

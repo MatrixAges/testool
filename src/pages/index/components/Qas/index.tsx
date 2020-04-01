@@ -36,6 +36,7 @@ interface IQa extends IQas {
 
 const Qa = (props: IQa) => {
 	const {
+		theme,
 		id,
 		index,
 		question,
@@ -52,9 +53,7 @@ const Qa = (props: IQa) => {
 	} = props
 	const [ state_answer_visible, setStateAnswerVisible ] = useState(false)
 	const [ state_rate, setStateRate ] = useState(5)
-      const lang = useIntl()
-      
-      const theme='dark'
+	const lang = useIntl()
 
 	useEffect(
 		() => {
@@ -174,7 +173,7 @@ const Qa = (props: IQa) => {
                                     `}
 					>
 						<div
-                                          className={`
+							className={`
                                                 ${styles.content} 
                                                 ${theme === 'dark' ? styles.dark : ''}
                                                 w_100 border_box text_justify
@@ -228,6 +227,7 @@ const Qa = (props: IQa) => {
 interface IProps {
 	loading: boolean
 	loadway: string
+	querying: boolean
 	theme: string
 	no_more: boolean
 	qas: Array<IQas>
@@ -242,6 +242,7 @@ interface IProps {
 const Index = (props: IProps) => {
 	const {
 		dispatch,
+		querying,
 		loading,
 		loadway,
 		theme,
@@ -274,6 +275,13 @@ const Index = (props: IProps) => {
 			})
 		},
 		[ loadway ]
+	)
+
+	useEffect(
+		() => {
+			if (!no_more) setStatePage(1)
+		},
+		[ no_more ]
 	)
 
 	const onEdit = (id: number, index: number) => {
@@ -415,7 +423,8 @@ const Index = (props: IProps) => {
 						</WindowScroller>
 					)}
 					{loadway === 'page' &&
-					total > 10 && (
+					total > 10 &&
+					!querying && (
 						<div className='pagination_wrap w_100 flex justify_center pt_20'>
 							<Pagination
 								defaultCurrent={1}
@@ -425,7 +434,8 @@ const Index = (props: IProps) => {
 						</div>
 					)}
 					{loadway !== 'page' &&
-					no_more && (
+					no_more &&
+					!querying && (
 						<div className='loading_more w_100 border_box pt_30 pb_30 flex justify_center'>
 							<span className='color_aaa'>
 								{lang.formatMessage({ id: 'index.no_more' })}
