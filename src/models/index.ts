@@ -43,11 +43,6 @@ export default modelExtend(pageModel, {
 				type: 'updateState',
 				payload: { qas, total }
 			})
-
-			yield put({
-				type: 'updateState',
-				payload: { qas, total }
-			})
 		},
 		*loadMore ({ payload }, { call, put, select }) {
 			const { qas } = yield select(({ index }) => index)
