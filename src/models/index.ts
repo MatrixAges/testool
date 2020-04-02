@@ -36,6 +36,8 @@ export default modelExtend(pageModel, {
 		*query ({ payload }, { call, put }) {
 			const { current_group, page } = payload
 
+			if (!current_group) return
+
 			const qas = yield call(Service_getQas, current_group, page)
 			const total = yield call(Service_getTotal, current_group)
 
