@@ -1,7 +1,7 @@
 import modelExtend from 'dva-model-extend'
 import pageModel from '@/utils/model'
 import { message } from 'antd'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 import {
 	Service_addGroup,
 	Service_addQa,
