@@ -144,35 +144,64 @@
       &.dark {
             color: white;
 
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-                  color: white;
-            }
+            :global {
+                  table {
 
-            h1,
-            h2 {
-                  padding-bottom: .3em;
-                  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
+                        th,
+                        td {
+                              background-color: #333;
+                        }
 
-            pre {
-                  background-color: #333;
-            }
+                        th {
+                              background-color: #111;
+                        }
+                  }
 
-            p {
+                  h1,
+                  h2,
+                  h3,
+                  h4,
+                  h5,
+                  h6 {
+                        color: white;
+                  }
 
-                  code,
-                  tt {
+                  h1,
+                  h2 {
+                        padding-bottom: .3em;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                  }
+
+                  pre {
                         background-color: #333;
+                  }
+
+                  p {
+
+                        code,
+                        tt {
+                              background-color: #333;
+                        }
                   }
             }
       }
 
       :global {
+            table {
+                  width: 100%;
+                  border-collapse: separate;
+                  border-spacing: 2px;
+
+                  th,
+                  td {
+                        padding: 6px 13px;
+                        background-color: whitesmoke;
+                  }
+
+                  th {
+                        background-color: #ddd;
+                  }
+            }
 
             h1,
             h2,
