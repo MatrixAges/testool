@@ -18,7 +18,6 @@ https://matrixage.github.io/testool/
 ## Preview
 
 ![preview_img](https://s1.ax1x.com/2020/04/03/GUSTPA.png)
-![preview_img](https://s1.ax1x.com/2020/04/03/GUSxaQ.png)
 
 ## Accessibility
 
