@@ -235,7 +235,7 @@ const Index = (props: IProps) => {
 								unCheckedChildren={lang.formatMessage({
 									id: 'layout.modal.theme_dark'
 								})}
-								defaultChecked={store.get('theme') !== 'dark'}
+								checked={store.get('theme') !== 'dark'}
 								onChange={onChangeTheme}
 							/>
 						</div>
@@ -252,7 +252,7 @@ const Index = (props: IProps) => {
 								unCheckedChildren={lang.formatMessage({
 									id: 'layout.modal.loadway_page'
 								})}
-								defaultChecked={store.get('loadway') !== 'page'}
+								checked={store.get('loadway') !== 'page'}
 								onChange={onChangeLoadway}
 							/>
 						</div>
